@@ -4,6 +4,30 @@ body
     background: url('../imgs/louvre_by_night.jpg') no-repeat;
     background-size: 100%;
 }
+
+footer
+{
+    height: 80px;
+    width: auto;
+    background-color: gray;
+    line-height: 80px;
+}
+
+footer a:visited {
+    color: darkgrey;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:active, a:focus {
+    color: darkgrey;
+    text-decoration: none;
+}
+
 #messageAccueil
 {
     color: white;

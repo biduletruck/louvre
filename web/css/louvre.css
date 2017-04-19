@@ -8,10 +8,10 @@ body
 
 footer
 {
-    height: 80px;
+    height: 75px;
     width: auto;
-    background-color: gray;
-    line-height: 80px;
+    background-color: black;
+    line-height: 75px;
 }
 
 footer a:visited {

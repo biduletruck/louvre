@@ -3,11 +3,24 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets  %}
+            <link rel="stylesheet" href="{{ '/louvre/vendor/twbs/bootstrap/dist/css/bootstrap.css' }}">
+        <link rel="stylesheet" href="{{ '/louvre/vendor/twbs/bootstrap/dist/css/bootstrap-theme.css' }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ '/louvre/vendor/components/jquery/jquery.min.js' }}"></script>
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
     </head>
     <body>
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% javascripts %}
+
+        {% endjavascripts %}
+
     </body>
 </html>

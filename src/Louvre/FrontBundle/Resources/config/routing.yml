@@ -1,3 +1,7 @@
 louvre_front_homepage:
     path:     /
     defaults: { _controller: LouvreFrontBundle:Default:index }
+
+louvre_front_reservation:
+    path:     /reservation
+    defaults: { _controller: LouvreFrontBundle:Default:reservation }

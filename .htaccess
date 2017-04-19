@@ -1,11 +1,5 @@
-SetEnv SHORT_OPEN_TAGS 0
-SetEnv REGISTER_GLOBALS 0
-SetEnv MAGIC_QUOTES 0
-SetEnv SESSION_AUTOSTART 0
-SetEnv ZEND_OPTIMIZER 1
-
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ web/$1 [QSA,L]
-</IfModule>
+#<IfModule mod_rewrite.c>
+#    RewriteEngine On
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteRule ^(.*)$ web/$1 [QSA,L]
+#</IfModule>

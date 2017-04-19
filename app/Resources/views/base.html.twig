@@ -2,25 +2,28 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %} | Le Louvre!{% endblock %}</title>
         {% block stylesheets  %}
             <link rel="stylesheet" href="{{ '/louvre/vendor/twbs/bootstrap/dist/css/bootstrap.css' }}">
-        <link rel="stylesheet" href="{{ '/louvre/vendor/twbs/bootstrap/dist/css/bootstrap-theme.css' }}">
-        {% endblock %}
-
-        {% block javascripts %}
-            <script src="{{ '/louvre/vendor/components/jquery/jquery.min.js' }}"></script>
+            <link rel="stylesheet" href="{{ asset('css/louvre.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     </head>
     <body>
 
+    {% block menu %}
+        {% include 'nav.html.twig' %}
+    {% endblock %}
+
+    <div class="container">
         {% block body %}{% endblock %}
+    </div>
 
-        {% javascripts %}
+    {% block footer %}{% endblock %}
 
-        {% endjavascripts %}
-
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="/louvre/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
+    {% javascripts %}{% endjavascripts %}
     </body>
 </html>

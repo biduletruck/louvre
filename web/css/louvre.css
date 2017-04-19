@@ -1,0 +1,22 @@
+body
+{
+    padding-top: 75px;
+    background: url('../imgs/louvre_by_night.jpg') no-repeat;
+    background-size: 100%;
+}
+#messageAccueil
+{
+    color: white;
+}
+
+.navbar-brand
+{
+    padding: 0px;
+}
+
+.navbar-brand>img
+{
+    height: 100%;
+    padding: 2px;
+    width: auto;
+}

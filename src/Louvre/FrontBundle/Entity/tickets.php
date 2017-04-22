@@ -12,6 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class tickets
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Louvre\FrontBundle\Entity\Orders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $order;
+
+
     /**
      * @var int
      *

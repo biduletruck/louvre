@@ -3,6 +3,7 @@
 namespace Louvre\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Louvre\FrontBundle\Form\TicketsType;
 
 /**
  * Orders
@@ -12,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Orders
 {
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Louvre\FrontBundle\Entity\Tickets", mappedBy="order", cascade={"persist"})
+     */
+
     /**
      * @var int
      *
@@ -56,6 +63,29 @@ class Orders
      */
     private $buyerFirstName;
 
+
+    /**
+     * @var tickets
+     *
+     */
+    private $tickets;
+
+    /**
+     * @return tickets
+     */
+    public function getTickets(): tickets
+    {
+        return $this->tickets;
+    }
+
+    /**
+     * @param tickets $tickets
+     */
+    public function setTickets(tickets $tickets)
+    {
+        $this->tickets = $tickets;
+    }
+
     /**
      * @var string
      *
@@ -66,6 +96,7 @@ class Orders
     public function __construct()
     {
         $this->purchaseDate = new \DateTime('NOW');
+
     }
 
     /**

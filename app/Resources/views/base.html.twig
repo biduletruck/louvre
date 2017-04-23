@@ -7,6 +7,7 @@
             <link rel="stylesheet" href="{{ '/louvre/vendor/twbs/bootstrap/dist/css/bootstrap.css' }}">
             <link rel="stylesheet" href="{{ asset('css/louvre.css') }}">
         {% endblock %}
+        {% block css %}{%  endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     </head>
@@ -27,5 +28,7 @@
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="/louvre/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
     {% endblock %}
+
+    {% block scripts %}{% endblock %}
     </body>
 </html>

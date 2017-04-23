@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Orders
 {
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Louvre\FrontBundle\Entity\Tickets", mappedBy="order", cascade={"persist"})
+     */
+
     /**
      * @var int
      *
@@ -222,4 +228,3 @@ class Orders
         return $this->buyerEmail;
     }
 }
-

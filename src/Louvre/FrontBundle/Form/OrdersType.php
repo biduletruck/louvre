@@ -4,7 +4,10 @@ namespace Louvre\FrontBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,18 +20,37 @@ class OrdersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('visitDate', 'date', array(
-                    'label' => 'Date de publication',
-                    'widget' => 'single_text',
-                    'input' => 'datetime',
-                    'format' => 'dd/MM/yyyy')
+            ->add('visitDate', TextType::class, array(
+                    'label' => 'Date de votre visite : ',
+                    'attr' => array('class' => 'form-control datepicker',
+                                    'readonly' => 'readonly'))
             )
-            ->add('ticketType', ChoiceType::class)
-            ->add('buyerLastName', TextType::class)
-            ->add('buyerFirstName', TextType::class)
-            ->add('buyerEmail', EmailType::class);
+            ->add('ticketType', ChoiceType::class, array(
+                'label' => 'Type de billet : ',
+                'choices' => array(
+                    'Billet journée' => '1',
+                    'Billet demi journée' => '2'),
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('buyerLastName', TextType::class, array(
+                'label' => 'Votre prénom : ',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('buyerFirstName', TextType::class, array(
+                'label' => 'Votre Nom : ',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('buyerEmail', EmailType::class, array(
+                'label' => 'Votre Email : ',
+                'attr' => array('class' => 'form-control')
+            ))
+
+
+            ->add('save',      SubmitType::class,array(
+                'attr' => array('class' => 'btn btn-primary')));
     }
-    
+
+
     /**
      * {@inheritdoc}
      */

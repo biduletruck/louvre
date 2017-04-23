@@ -1,5 +1,5 @@
 services:
     louvre_front.controller.booking_controller:
-    	class: Louvre\FrontBundle\Controller\BookingController
-    	calls:
-    		- [setContainer, ['@service_container']]
+        class: Louvre\FrontBundle\Controller\BookingController
+        calls:
+            - [addBookingAction]

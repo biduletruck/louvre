@@ -1,0 +1,9 @@
+.dp-highlight-coldeday .ui-state-default {
+    background: #c41520;
+    color: #FFF;
+}
+
+.dp-highlight-holiday .ui-state-default {
+    background: #044488;
+    color: #FFF;
+}

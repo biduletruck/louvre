@@ -1,6 +1,41 @@
 {% extends '::base.html.twig' %}
-{% block body %}
-
-    <H1>Réservation OFF line</H1>
-
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
 {% endblock %}
+{% block body %}
+<!--
+    visitDate
+    ticketType
+    buyerLastName
+    buyerFirstName
+    buyerEmail
+    ticket
+    visitorLastName
+    visitorFirstName
+    visitorCountry
+    visitorBirthDate
+
+-->
+<div class="container-fluid">
+
+    <div class="well">
+            <h3>Formulaire de réservation</h3>
+    </div>
+    <div class="well col-xs-12 col-md-4 col-md-push-4 col-lg-4 col-lg-push-4">
+        {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+        {{ form_rest(form) }}
+
+        {{ form_widget(form.save) }}
+
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
+{%  endblock %}

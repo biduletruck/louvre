@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %} | Le Louvre!{% endblock %}</title>
         {% block stylesheets  %}
-            <link rel="stylesheet" href="{{ '/louvre/vendor/twbs/bootstrap/dist/css/bootstrap.css' }}">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
             <link rel="stylesheet" href="{{ asset('css/louvre.css') }}">
         {% endblock %}
         {% block css %}{%  endblock %}
@@ -26,7 +26,7 @@
 
     {% block javascripts %}
         <script src="{{ asset('js/jquery.js') }}"></script>
-        <script src="/louvre/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     {% endblock %}
 
     {% block scripts %}{% endblock %}

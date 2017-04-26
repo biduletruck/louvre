@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class BookingController extends Controller
 {
     public function addBookingAction(Request $request)
@@ -18,7 +19,7 @@ class BookingController extends Controller
 
         $formOrder->handleRequest($request);
 
-        if ($formOrder->isSubmitted())
+        if ($formOrder->isSubmitted() && $formOrder->isValid())
         {
             $em = $this->getDoctrine()->getManager();
 

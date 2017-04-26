@@ -3,7 +3,6 @@
 namespace Louvre\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Louvre\FrontBundle\Form\TicketsType;
 
 /**
  * Orders
@@ -13,12 +12,6 @@ use Louvre\FrontBundle\Form\TicketsType;
  */
 class Orders
 {
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="Louvre\FrontBundle\Entity\Tickets", mappedBy="order", cascade={"persist"})
-     */
-
     /**
      * @var int
      *
@@ -52,57 +45,33 @@ class Orders
     /**
      * @var string
      *
-     * @ORM\Column(name="buyerLastName", type="string", length=50)
+     * @ORM\Column(name="buyerLastName", type="string", length=255)
      */
     private $buyerLastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buyerFirstName", type="string", length=50)
+     * @ORM\Column(name="buyerFirstName", type="string", length=255)
      */
     private $buyerFirstName;
-
-
-    /**
-     * @var tickets
-     *
-     */
-    private $tickets;
-
-    /**
-     * @return tickets
-     */
-    public function getTickets(): tickets
-    {
-        return $this->tickets;
-    }
-
-    /**
-     * @param tickets $tickets
-     */
-    public function setTickets(tickets $tickets)
-    {
-        $this->tickets = $tickets;
-    }
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buyerEmail", type="string", length=100)
+     * @ORM\Column(name="buyerEmail", type="string", length=255)
      */
     private $buyerEmail;
 
     public function __construct()
     {
-        $this->purchaseDate = new \DateTime('NOW');
-
+        $this->purchaseDate = new \DateTime("NOW");
     }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -174,7 +143,7 @@ class Orders
     /**
      * Get ticketType
      *
-     * @return int
+     * @return integer
      */
     public function getTicketType()
     {

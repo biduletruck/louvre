@@ -87,6 +87,15 @@ class Orders
      */
     private $buyerEmail;
 
+
+    /**
+     * @var Tickets
+     *
+     * @Assert\Valid()
+     * @Assert\Type(type="Louvre\FronfBundle\Entity\Tickets")
+     */
+    private $tickets;
+
     public function __construct()
     {
         $this->purchaseDate = new \DateTime("NOW");
@@ -148,30 +157,6 @@ class Orders
     public function getVisitDate()
     {
         return $this->visitDate;
-    }
-
-    /**
-     * Set ticketType
-     *
-     * @param integer $ticketType
-     *
-     * @return Orders
-     */
-    public function setTicketType($ticketType)
-    {
-        $this->ticketType = $ticketType;
-
-        return $this;
-    }
-
-    /**
-     * Get ticketType
-     *
-     * @return integer
-     */
-    public function getTicketType()
-    {
-        return $this->ticketType;
     }
 
     /**
@@ -252,14 +237,66 @@ class Orders
     public function ticketIsValid(ExecutionContextInterface $context)
     {
         $dateValidator = new \DateTime("NOW");
-        if ( ($this->getTicketType() === "1") && ($this->getVisitDate()->format("Y-m-d") === date("Y-m-d")) )
+
+        if(!empty($this->getVisitDate()) )
         {
-            if ( $dateValidator->format("Y-m-d H:i") > date("Y-m-d 14:00") )
+            if ( ($this->getTicketType() === "1") && ($this->getVisitDate()->format("Y-m-d") === date("Y-m-d")) )
             {
-                $context->buildViolation('Il n\'est pas possible de commander un billet journée après 14H00!')
-                    ->atPath('ticketType')
-                    ->addViolation();}
+                if ( $dateValidator->format("Y-m-d H:i") > date("Y-m-d 14:00") )
+                {
+                    $context->buildViolation('Il n\'est pas possible de commander un billet journée après 14H00!')
+                        ->atPath('ticketType')
+                        ->addViolation();}
+            }
         }
     }
 
+
+    /**
+     * Set ticketType
+     *
+     * @param integer $ticketType
+     *
+     * @return Orders
+     */
+    public function setTicketType($ticketType)
+    {
+        $this->ticketType = $ticketType;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketType
+     *
+     * @return integer
+     */
+    public function getTicketType()
+    {
+        return $this->ticketType;
+    }
+
+    /**
+     * Set tickets
+     *
+     * @param \Louvre\FrontBundle\Entity\Tickets $tickets
+     *
+     * @return Tickets
+     */
+    public function setTickets(Tickets $tickets)
+    {
+        $this->tickets = $tickets;
+
+        return $this->tickets;
+    }
+
+    /**
+     * Get tickets
+     *
+     * @return \Louvre\FrontBundle\Entity\Tickets
+     */
+    public function getTickets()
+    {
+        return $this->tickets;
+    }
 }

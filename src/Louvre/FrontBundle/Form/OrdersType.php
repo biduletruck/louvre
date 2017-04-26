@@ -4,6 +4,7 @@ namespace Louvre\FrontBundle\Form;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -45,6 +46,7 @@ class OrdersType extends AbstractType
                 'label' => 'Votre Email : ',
                 'attr' => array('class' => 'form-control')
             ))
+            ->add('tickets', TicketsType::class)
             ->add('save',      SubmitType::class,array(
                 'attr' => array('class' => 'btn btn-primary')));
     }

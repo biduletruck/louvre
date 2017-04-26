@@ -237,13 +237,17 @@ class Orders
     public function ticketIsValid(ExecutionContextInterface $context)
     {
         $dateValidator = new \DateTime("NOW");
-        if ( ($this->getTicketType() === "1") && ($this->getVisitDate()->format("Y-m-d") === date("Y-m-d")) )
+
+        if(!empty($this->getVisitDate()) )
         {
-            if ( $dateValidator->format("Y-m-d H:i") > date("Y-m-d 14:00") )
+            if ( ($this->getTicketType() === "1") && ($this->getVisitDate()->format("Y-m-d") === date("Y-m-d")) )
             {
-                $context->buildViolation('Il n\'est pas possible de commander un billet journée après 14H00!')
-                    ->atPath('ticketType')
-                    ->addViolation();}
+                if ( $dateValidator->format("Y-m-d H:i") > date("Y-m-d 14:00") )
+                {
+                    $context->buildViolation('Il n\'est pas possible de commander un billet journée après 14H00!')
+                        ->atPath('ticketType')
+                        ->addViolation();}
+            }
         }
     }
 
@@ -270,5 +274,29 @@ class Orders
     public function getTicketType()
     {
         return $this->ticketType;
+    }
+
+    /**
+     * Set tickets
+     *
+     * @param \Louvre\FrontBundle\Entity\Tickets $tickets
+     *
+     * @return Tickets
+     */
+    public function setTickets(Tickets $tickets)
+    {
+        $this->tickets = $tickets;
+
+        return $this->tickets;
+    }
+
+    /**
+     * Get tickets
+     *
+     * @return \Louvre\FrontBundle\Entity\Tickets
+     */
+    public function getTickets()
+    {
+        return $this->tickets;
     }
 }

@@ -11,10 +11,25 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\RouterInterface;
 
 class OrdersType extends AbstractType
 {
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
+     * @param RouterInterface $router
+     */
+    public function setRouter(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -48,7 +63,11 @@ class OrdersType extends AbstractType
             ))
             ->add('tickets', TicketsType::class)
             ->add('save',      SubmitType::class,array(
-                'attr' => array('class' => 'btn btn-primary')));
+                'attr' => array('class' => 'btn btn-primary')
+            ))
+            ->setAction($this->router
+                                    ->generate('louvre_front_saveorder'))
+                                    ->setMethod(Request::METHOD_POST);
     }
     
     /**
@@ -57,7 +76,7 @@ class OrdersType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Louvre\FrontBundle\Entity\Orders'
+            'data_class' => OrderModel::class
         ));
     }
 

@@ -2,6 +2,12 @@ louvre_front_homepage:
     path:     /
     defaults: { _controller: LouvreFrontBundle:Default:index }
 
-louvre_front_reservation:
-    path:     /addBooking
-    defaults: { _controller: LouvreFrontBundle:Booking:addBooking }
+louvre_front_showorder:
+    path:     /order/
+    defaults: { _controller: LouvreFrontBundle:Booking/ShowBooking:showOrder}
+    methods: [GET]
+
+louvre_front_saveorder:
+    path:     /order/save
+    defaults: { _controller: LouvreFrontBundle:Booking/SaveBooking:saveOrder}
+    methods: [POST]

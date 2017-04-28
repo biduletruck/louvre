@@ -1,5 +1,9 @@
 services:
-    louvre_front.controller.booking_controller:
-        class: Louvre\FrontBundle\Controller\BookingController
+    louvre.front_bundle.form.orders_type:
+        class: Louvre\FrontBundle\Form\OrdersType
         calls:
-            - [addBookingAction]
+            - method: setRouter
+              arguments:
+                - '@router'
+        tags:
+            - {name: form.type}

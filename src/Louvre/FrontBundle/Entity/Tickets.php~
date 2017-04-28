@@ -3,22 +3,21 @@
 namespace Louvre\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tickets
  *
- * @ORM\Table(name="Tickets")
+ * @ORM\Table(name="tickets")
  * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\TicketsRepository")
  */
 class Tickets
 {
-
     /**
-     * @ORM\ManyToOne(targetEntity="Louvre\FrontBundle\Entity\Orders" , inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="Louvre\FrontBundle\Entity\Orders")
      * @ORM\JoinColumn(nullable=false)
      */
     private $order;
-
 
     /**
      * @var int
@@ -32,44 +31,12 @@ class Tickets
     /**
      * @var string
      *
-     * @ORM\Column(name="visitorLastName", type="string", length=50)
-     */
-    private $visitorLastName;
-
-    /**
-     * @var string
+     * @ORM\Column(name="visitorFullName", type="string", length=255)
      *
-     * @ORM\Column(name="visitorFirstName", type="string", length=50)
-     */
-    private $visitorFirstName;
-
-    /**
-     * @var string
+     * @Assert\NotBlank(message="Le nom complet est obligatoire")
      *
-     * @ORM\Column(name="visitorCountry", type="string", length=100)
      */
-    private $visitorCountry;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="visitorBirthDate", type="date")
-     */
-    private $visitorBirthDate;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="reducedPrices", type="boolean")
-     */
-    private $reducedPrices;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ticketPrices", type="decimal", precision=10, scale=2)
-     */
-    private $ticketPrices;
+    private $visitorFullName;
 
 
     /**
@@ -83,147 +50,27 @@ class Tickets
     }
 
     /**
-     * Set visitorLastName
+     * Set visitorFullName
      *
-     * @param string $visitorLastName
+     * @param string $visitorFullName
      *
      * @return Tickets
      */
-    public function setVisitorLastName($visitorLastName)
+    public function setVisitorFullName($visitorFullName)
     {
-        $this->visitorLastName = $visitorLastName;
+        $this->visitorFullName = $visitorFullName;
 
         return $this;
     }
 
     /**
-     * Get visitorLastName
+     * Get visitorFullName
      *
      * @return string
      */
-    public function getVisitorLastName()
+    public function getVisitorFullName()
     {
-        return $this->visitorLastName;
-    }
-
-    /**
-     * Set visitorFirstName
-     *
-     * @param string $visitorFirstName
-     *
-     * @return Tickets
-     */
-    public function setVisitorFirstName($visitorFirstName)
-    {
-        $this->visitorFirstName = $visitorFirstName;
-
-        return $this;
-    }
-
-    /**
-     * Get visitorFirstName
-     *
-     * @return string
-     */
-    public function getVisitorFirstName()
-    {
-        return $this->visitorFirstName;
-    }
-
-    /**
-     * Set visitorCountry
-     *
-     * @param string $visitorCountry
-     *
-     * @return Tickets
-     */
-    public function setVisitorCountry($visitorCountry)
-    {
-        $this->visitorCountry = $visitorCountry;
-
-        return $this;
-    }
-
-    /**
-     * Get visitorCountry
-     *
-     * @return string
-     */
-    public function getVisitorCountry()
-    {
-        return $this->visitorCountry;
-    }
-
-    /**
-     * Set visitorBirthDate
-     *
-     * @param \DateTime $visitorBirthDate
-     *
-     * @return Tickets
-     */
-    public function setVisitorBirthDate($visitorBirthDate)
-    {
-        $this->visitorBirthDate = $visitorBirthDate;
-
-        return $this;
-    }
-
-    /**
-     * Get visitorBirthDate
-     *
-     * @return \DateTime
-     */
-    public function getVisitorBirthDate()
-    {
-        return $this->visitorBirthDate;
-    }
-
-    /**
-     * Set reducedPrices
-     *
-     * @param boolean $reducedPrices
-     *
-     * @return Tickets
-     */
-    public function setReducedPrices($reducedPrices)
-    {
-        $this->reducedPrices = $reducedPrices;
-
-        return $this;
-    }
-
-    /**
-     * Get reducedPrices
-     *
-     * @return bool
-     */
-    public function getReducedPrices()
-    {
-        return $this->reducedPrices;
-    }
-
-    /**
-     * Set ticketPrices
-     *
-     * @param string $ticketPrices
-     *
-     * @return Tickets
-     */
-    public function setTicketPrices($ticketPrices)
-    {
-        $this->ticketPrices = $ticketPrices;
-
-        return $this;
-    }
-
-    /**
-     * Get ticketPrices
-     *
-     * @return string
-     */
-    public function getTicketPrices()
-    {
-        return $this->ticketPrices;
+        return $this->visitorFullName;
     }
 
     /**

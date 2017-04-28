@@ -1,14 +1,14 @@
 var celebrationDay = [
     {
-        date: '01/05/2017',
+        date: '2017-05-01',
         desc: 'Fête du travail'
     },
     {
-        date: '01/11/2017',
+        date: '2017-11-01',
         desc: 'Toussaint'
     },
     {
-        date: '25/12/2017',
+        date: '2017-12-25',
         desc: 'Noël'
     }
 ];
@@ -17,7 +17,7 @@ $(function() {
     $(".datepicker").datepicker({
         firstDay: 1,    // Premier jour de la semaine
         minDate: 0,     // Première date disponible
-        dateFormat:("dd/mm/yy"),
+        dateFormat:("yy-mm-dd"),
 
         beforeShowDay: function(date) {
             var day = date.getDay();
@@ -33,7 +33,7 @@ $(function() {
                 result[1] = "dp-highlight-coldeday";
                 result[2] = "Jour de fermeture";
             } else {
-                var key = $.datepicker.formatDate("dd/mm/yy", date);
+                var key = $.datepicker.formatDate("yy-mm-dd", date);
                 // Indique les fêtes nationale
                 for (var i=0; i<celebrationDay.length; i++) {
                     if (key === celebrationDay[i].date) {

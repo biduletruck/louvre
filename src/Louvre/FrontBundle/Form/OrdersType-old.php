@@ -2,14 +2,13 @@
 
 namespace Louvre\FrontBundle\Form;
 
-
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,11 +20,10 @@ class OrdersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('visitDate', DateType::class, array(
+            ->add('visitDate', TextType::class, array(
                     'label' => 'Date de votre visite : ',
-                    'widget' =>'single_text',
                     'attr' => array('class' => 'form-control datepicker',
-                        'readonly' => 'readonly'))
+                                    'readonly' => 'readonly'))
             )
             ->add('ticketType', ChoiceType::class, array(
                 'label' => 'Type de billet : ',
@@ -46,11 +44,15 @@ class OrdersType extends AbstractType
                 'label' => 'Votre Email : ',
                 'attr' => array('class' => 'form-control')
             ))
+            //->add('tickets', CollectionType::class)
             ->add('tickets', TicketsType::class)
+
+
             ->add('save',      SubmitType::class,array(
                 'attr' => array('class' => 'btn btn-primary')));
     }
-    
+
+
     /**
      * {@inheritdoc}
      */

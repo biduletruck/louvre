@@ -14,10 +14,29 @@ class TicketsModel
 {
 
     /**
+     * @var string
      *
      * @Assert\NotBlank(message="Le nom complet est obligatoire")
      */
     public $visitorFullName;
+
+    /**
+     * @Assert\NotBlank()
+     */
+    public $visitorCountry;
+
+    /**
+     * @var \DateTime
+     *
+     * @Assert\NotNull(message="Une date de naissance est obligatoire")
+     */
+    public $visitorBirthDate;
+
+    /**
+     * @var boolean
+     */
+    public $reducedPrices;
+
 
     public function isValidTicket()
     {

@@ -15,12 +15,14 @@ class SaveBookingController extends BookinController
 
         if ($formOrder->isSubmitted() && $formOrder->isValid())
         {
-            /*
+
+            $data = $formOrder->getData();
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($order);
+            $em->persist($data);
             $em->flush();
-            */
+
+
 
             return new Response('Achat validé');
         }

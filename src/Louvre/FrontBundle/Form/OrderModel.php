@@ -39,13 +39,15 @@ class OrderModel
     public $buyerFirstName;
 
     /**
-     * @Assert\Valid()
-     * @Assert\Type(type="Louvre\FronfBundle\Entity\Tickets")
+     * @Assert\NotBlank(message="Le champs doit contenir un Email valide")
+     * @Assert\Email()
      */
     public $buyerEmail;
 
     /**
      * @var TicketsModel[]
+     * @Assert\Valid()
+     * @Assert\Type(type="Louvre\FrontBundle\Entity\Tickets")
      */
     public $tickets;
 

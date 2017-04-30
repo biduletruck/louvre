@@ -36,6 +36,26 @@ class Tickets
      */
     private $visitorFullName;
 
+    /**
+     * @var
+     *
+     * @ORM\Column(name="visitorCountry", type="string", length=2555)
+     */
+    private $visitorCountry;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="visitorBirthDate", type="date")
+     */
+    private $visitorBirthDate;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="reducedPrices", type="boolean")
+     */
+    private $reducedPrices;
 
     /**
      * Get id
@@ -93,5 +113,77 @@ class Tickets
     public function getOrder()
     {
         return $this->order;
+    }
+
+    /**
+     * Set visitorCountry
+     *
+     * @param string $visitorCountry
+     *
+     * @return Tickets
+     */
+    public function setVisitorCountry($visitorCountry)
+    {
+        $this->visitorCountry = $visitorCountry;
+
+        return $this;
+    }
+
+    /**
+     * Get visitorCountry
+     *
+     * @return string
+     */
+    public function getVisitorCountry()
+    {
+        return $this->visitorCountry;
+    }
+
+    /**
+     * Set visitorBirthDate
+     *
+     * @param \DateTime $visitorBirthDate
+     *
+     * @return Tickets
+     */
+    public function setVisitorBirthDate($visitorBirthDate)
+    {
+        $this->visitorBirthDate = $visitorBirthDate;
+
+        return $this;
+    }
+
+    /**
+     * Get visitorBirthDate
+     *
+     * @return \DateTime
+     */
+    public function getVisitorBirthDate()
+    {
+        return $this->visitorBirthDate;
+    }
+
+    /**
+     * Set reducedPrices
+     *
+     * @param boolean $reducedPrices
+     *
+     * @return Tickets
+     */
+    public function setReducedPrices($reducedPrices)
+    {
+        $this->reducedPrices = $reducedPrices;
+
+        return $this;
+    }
+
+    /**
+     * Get reducedPrices
+     *
+     * @return boolean
+     */
+    public function getReducedPrices()
+    {
+        return $this->reducedPrices;
     }
 }

@@ -3,7 +3,7 @@
 namespace Louvre\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Tickets
@@ -33,10 +33,30 @@ class Tickets
      *
      * @ORM\Column(name="visitorFullName", type="string", length=255)
      *
-     * @Assert\NotBlank(message="Le nom complet est obligatoire")
-     *
      */
     private $visitorFullName;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="visitorCountry", type="string", length=2555)
+     */
+    private $visitorCountry;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="visitorBirthDate", type="date")
+     */
+    private $visitorBirthDate;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="reducedPrices", type="boolean")
+     */
+    private $reducedPrices;
+
 
 
     /**

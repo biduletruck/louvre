@@ -3,8 +3,6 @@
 namespace Louvre\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -18,7 +16,6 @@ class Orders
 {
     /**
      * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -30,8 +27,6 @@ class Orders
      *
      * @ORM\Column(name="purchaseDate", type="datetime")
      *
-     *
-     *
      */
     private $purchaseDate;
 
@@ -39,9 +34,6 @@ class Orders
      * @var \DateTime
      *
      * @ORM\Column(name="visitDate", type="date")
-     *
-     * @Assert\NotNull(message="Une date est obligatoire")
-     * @Assert\GreaterThanOrEqual("today")
      *
      */
     private $visitDate;
@@ -60,7 +52,6 @@ class Orders
      *
      * @ORM\Column(name="buyerLastName", type="string", length=255)
      *
-     * @Assert\NotBlank(message="Un prénom est obligatoire")
      *
      */
     private $buyerLastName;
@@ -70,7 +61,6 @@ class Orders
      *
      * @ORM\Column(name="buyerFirstName", type="string", length=255)
      *
-     * @Assert\NotBlank(message="Un nom est obligatoire")
      *
      */
     private $buyerFirstName;
@@ -80,9 +70,6 @@ class Orders
      *
      * @ORM\Column(name="buyerEmail", type="string", length=255)
      *
-     * @Assert\NotBlank(message="Un émail valide est obligatoire")
-     *
-     * @Assert\Email()
      *
      */
     private $buyerEmail;
@@ -91,8 +78,7 @@ class Orders
     /**
      * @var Tickets
      *
-     * @Assert\Valid()
-     * @Assert\Type(type="Louvre\FronfBundle\Entity\Tickets")
+
      */
     private $tickets;
 
@@ -230,27 +216,6 @@ class Orders
     {
         return $this->buyerEmail;
     }
-
-    /**
-     * @Assert\Callback
-     */
-    public function ticketIsValid(ExecutionContextInterface $context)
-    {
-        $dateValidator = new \DateTime("NOW");
-
-        if(!empty($this->getVisitDate()) )
-        {
-            if ( ($this->getTicketType() === "1") && ($this->getVisitDate()->format("Y-m-d") === date("Y-m-d")) )
-            {
-                if ( $dateValidator->format("Y-m-d H:i") > date("Y-m-d 14:00") )
-                {
-                    $context->buildViolation('Il n\'est pas possible de commander un billet journée après 14H00!')
-                        ->atPath('ticketType')
-                        ->addViolation();}
-            }
-        }
-    }
-
 
     /**
      * Set ticketType

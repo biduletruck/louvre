@@ -10,10 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="orders")
  * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\OrdersRepository")
+ *
  */
 
 class Orders
 {
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer")
@@ -73,6 +75,13 @@ class Orders
      *
      */
     private $buyerEmail;
+
+
+    /**
+     * @var integer
+     * @ORM\Column(name="orderStatus", type="integer")
+     */
+    private $orderStatus;
 
 
     /**

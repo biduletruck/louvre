@@ -10,10 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="orders")
  * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\OrdersRepository")
+ *
  */
 
 class Orders
 {
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer")
@@ -76,6 +78,13 @@ class Orders
 
 
     /**
+     * @var integer
+     * @ORM\Column(name="orderStatus", type="integer")
+     */
+    private $orderStatus;
+
+
+    /**
      * @var Tickets
      *
 
@@ -85,6 +94,7 @@ class Orders
     public function __construct()
     {
         $this->purchaseDate = new \DateTime("NOW");
+        $this->orderStatus = 0;
     }
 
     /**
@@ -263,5 +273,29 @@ class Orders
     public function getTickets()
     {
         return $this->tickets;
+    }
+
+    /**
+     * Set orderStatus
+     *
+     * @param integer $orderStatus
+     *
+     * @return Orders
+     */
+    public function setOrderStatus($orderStatus)
+    {
+        $this->orderStatus = $orderStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get orderStatus
+     *
+     * @return integer
+     */
+    public function getOrderStatus()
+    {
+        return $this->orderStatus;
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TicketsType extends AbstractType
+class TicketType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -29,7 +29,7 @@ class TicketsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Louvre\FrontBundle\Entity\Tickets'
+            'data_class' => 'Louvre\FrontBundle\Entity\Ticket'
         ));
     }
 

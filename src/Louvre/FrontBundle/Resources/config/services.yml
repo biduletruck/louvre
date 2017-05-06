@@ -1,6 +1,6 @@
 services:
     louvre.front_bundle.form.orders_type:
-        class: Louvre\FrontBundle\Form\OrdersType
+        class: Louvre\FrontBundle\Form\OrderType
         calls:
             - method: setRouter
               arguments:
@@ -8,5 +8,8 @@ services:
         tags:
             - {name: form.type}
 
-    louvre.front_bundle.entity.orders_factory:
+    louvre.front_bundle.entity.order_factory:
         class: Louvre\FrontBundle\Entity\OrderFactory
+
+    louvre.front_bundle.entity.ticket_factory:
+            class: Louvre\FrontBundle\Entity\TicketFactory

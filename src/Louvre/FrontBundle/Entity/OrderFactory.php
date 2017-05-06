@@ -15,11 +15,11 @@ class OrderFactory
 {
     /**
      * @param OrderModel $orderModel
-     * @return Orders
+     * @return Order
      */
     public function createFromModel(OrderModel $orderModel)
     {
-        $order = new Orders();
+        $order = new Order();
         $order->setVisitDate($orderModel->visitDate);
         $order->setTicketType($orderModel->ticketType);
         $order->setBuyerEmail($orderModel->buyerEmail);

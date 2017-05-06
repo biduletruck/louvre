@@ -11,7 +11,7 @@ namespace Louvre\FrontBundle\Controller\Booking;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Louvre\FrontBundle\Form\OrderModel;
-use Louvre\FrontBundle\Form\OrdersType;
+use Louvre\FrontBundle\Form\OrderType;
 use Symfony\Component\Form\FormInterface;
 
 abstract class BookinController extends Controller
@@ -21,7 +21,7 @@ abstract class BookinController extends Controller
      */
     protected function buildOrderForm()
     {
-        return $this->createForm(OrdersType::class, new OrderModel());
+        return $this->createForm(OrderType::class, new OrderModel());
     }
 
     /**

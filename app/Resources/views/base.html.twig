@@ -17,6 +17,16 @@
         {% include 'nav.html.twig' %}
     {% endblock %}
 
+
+    {% for label, messages in app.session.flashbag %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+
     {% block body %}{% endblock %}
 
     {% block footer %}

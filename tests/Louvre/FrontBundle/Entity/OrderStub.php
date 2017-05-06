@@ -9,7 +9,7 @@
 namespace Louvre\FrontBundle\Entity;
 
 
-class OrderStub extends Orders
+class OrderStub extends Order
 {
 
 

@@ -10,7 +10,7 @@ namespace Louvre\FrontBundle\Form;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class TicketsModel
+class TicketModel
 {
 
     /**

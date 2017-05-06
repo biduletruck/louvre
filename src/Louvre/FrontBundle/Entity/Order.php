@@ -6,14 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * Orders
+ * Order
  *
  * @ORM\Table(name="orders")
  * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\OrdersRepository")
  *
  */
 
-class Orders
+class Order
 {
 
     /**
@@ -85,7 +85,7 @@ class Orders
 
 
     /**
-     * @var Tickets
+     * @var Ticket
      *
 
      */
@@ -112,7 +112,7 @@ class Orders
      *
      * @param \DateTime $purchaseDate
      *
-     * @return Orders
+     * @return Order
      */
     public function setPurchaseDate($purchaseDate)
     {
@@ -136,7 +136,7 @@ class Orders
      *
      * @param \DateTime $visitDate
      *
-     * @return Orders
+     * @return Order
      */
     public function setVisitDate($visitDate)
     {
@@ -160,7 +160,7 @@ class Orders
      *
      * @param string $buyerLastName
      *
-     * @return Orders
+     * @return Order
      */
     public function setBuyerLastName($buyerLastName)
     {
@@ -184,7 +184,7 @@ class Orders
      *
      * @param string $buyerFirstName
      *
-     * @return Orders
+     * @return Order
      */
     public function setBuyerFirstName($buyerFirstName)
     {
@@ -208,7 +208,7 @@ class Orders
      *
      * @param string $buyerEmail
      *
-     * @return Orders
+     * @return Order
      */
     public function setBuyerEmail($buyerEmail)
     {
@@ -232,7 +232,7 @@ class Orders
      *
      * @param integer $ticketType
      *
-     * @return Orders
+     * @return Order
      */
     public function setTicketType($ticketType)
     {
@@ -254,11 +254,11 @@ class Orders
     /**
      * Set tickets
      *
-     * @param \Louvre\FrontBundle\Entity\Tickets $tickets
+     * @param \Louvre\FrontBundle\Entity\Ticket $tickets
      *
-     * @return Tickets
+     * @return Ticket
      */
-    public function setTickets(Tickets $tickets)
+    public function setTickets(Ticket $tickets)
     {
         $this->tickets = $tickets;
 
@@ -268,7 +268,7 @@ class Orders
     /**
      * Get tickets
      *
-     * @return \Louvre\FrontBundle\Entity\Tickets
+     * @return \Louvre\FrontBundle\Entity\Ticket
      */
     public function getTickets()
     {
@@ -280,7 +280,7 @@ class Orders
      *
      * @param integer $orderStatus
      *
-     * @return Orders
+     * @return Order
      */
     public function setOrderStatus($orderStatus)
     {

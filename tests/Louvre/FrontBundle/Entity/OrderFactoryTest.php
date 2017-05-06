@@ -24,7 +24,7 @@ class OrderFactoryTest extends TestCase
         $orderFactory = new OrderFactory();
         $actualOrder = $orderFactory->createFromModel(new OrderModel());
 
-       $this->assertOrder(new Orders(), $actualOrder);
+       $this->assertOrder(new Order(), $actualOrder);
     }
 
     /**

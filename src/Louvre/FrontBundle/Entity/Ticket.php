@@ -6,17 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * Tickets
+ * Ticket
  *
  * @ORM\Table(name="tickets")
  * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\TicketsRepository")
  */
-class Tickets
+class Ticket
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Louvre\FrontBundle\Entity\Orders")
+     * @ORM\ManyToOne(targetEntity="Order.php")
      * @ORM\JoinColumn(nullable=false)
-     * @var Orders
+     * @var Order
      *
      */
     protected $order;
@@ -74,7 +74,7 @@ class Tickets
      *
      * @param string $visitorFullName
      *
-     * @return Tickets
+     * @return Ticket
      */
     public function setVisitorFullName($visitorFullName)
     {
@@ -96,11 +96,11 @@ class Tickets
     /**
      * Set order
      *
-     * @param \Louvre\FrontBundle\Entity\Orders $order
+     * @param \Louvre\FrontBundle\Entity\Order $order
      *
-     * @return Tickets
+     * @return Ticket
      */
-    public function setOrder(\Louvre\FrontBundle\Entity\Orders $order)
+    public function setOrder(\Louvre\FrontBundle\Entity\Order $order)
     {
         $this->order = $order;
 
@@ -110,7 +110,7 @@ class Tickets
     /**
      * Get order
      *
-     * @return \Louvre\FrontBundle\Entity\Orders
+     * @return \Louvre\FrontBundle\Entity\Order
      */
     public function getOrder()
     {
@@ -122,7 +122,7 @@ class Tickets
      *
      * @param string $visitorCountry
      *
-     * @return Tickets
+     * @return Ticket
      */
     public function setVisitorCountry($visitorCountry)
     {
@@ -146,7 +146,7 @@ class Tickets
      *
      * @param \DateTime $visitorBirthDate
      *
-     * @return Tickets
+     * @return Ticket
      */
     public function setVisitorBirthDate($visitorBirthDate)
     {
@@ -170,7 +170,7 @@ class Tickets
      *
      * @param boolean $reducedPrices
      *
-     * @return Tickets
+     * @return Ticket
      */
     public function setReducedPrices($reducedPrices)
     {

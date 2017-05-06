@@ -5,7 +5,7 @@ namespace Louvre\FrontBundle\Controller;
 
 
 use Louvre\FrontBundle\Form\OrderModel;
-use Louvre\FrontBundle\Form\OrdersType;
+use Louvre\FrontBundle\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ class BookingController extends Controller
     public function addBookingAction(Request $request)
     {
         $order = new OrderModel();
-        $formOrder = $this->createForm(OrdersType::class, $order);
+        $formOrder = $this->createForm(OrderType::class, $order);
 
         $formOrder->handleRequest($request);
 

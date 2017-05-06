@@ -13,7 +13,7 @@ use PHPUnit\Framework\Assert as Assert;
 trait OrderTestCase
 {
 
-    public function assertOrder(Orders $expectedOrder, Orders $actualOrder )
+    public function assertOrder(Order $expectedOrder, Order $actualOrder )
     {
         Assert::assertEquals($expectedOrder->getId(), $actualOrder->getId());
         Assert::assertEquals($expectedOrder->getVisitDate(), $actualOrder->getVisitDate());

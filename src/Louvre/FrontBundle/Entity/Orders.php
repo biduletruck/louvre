@@ -22,7 +22,7 @@ class Orders
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \DateTime
@@ -30,7 +30,7 @@ class Orders
      * @ORM\Column(name="purchaseDate", type="datetime")
      *
      */
-    private $purchaseDate;
+    protected $purchaseDate;
 
     /**
      * @var \DateTime
@@ -38,7 +38,7 @@ class Orders
      * @ORM\Column(name="visitDate", type="date")
      *
      */
-    private $visitDate;
+    protected $visitDate;
 
     /**
      * @var int
@@ -47,7 +47,7 @@ class Orders
      *
      *
      */
-    private $ticketType;
+    protected $ticketType;
 
     /**
      * @var string
@@ -56,7 +56,7 @@ class Orders
      *
      *
      */
-    private $buyerLastName;
+    protected $buyerLastName;
 
     /**
      * @var string
@@ -65,7 +65,7 @@ class Orders
      *
      *
      */
-    private $buyerFirstName;
+    protected $buyerFirstName;
 
     /**
      * @var string
@@ -74,14 +74,14 @@ class Orders
      *
      *
      */
-    private $buyerEmail;
+    protected $buyerEmail;
 
 
     /**
      * @var integer
      * @ORM\Column(name="orderStatus", type="integer")
      */
-    private $orderStatus;
+    protected $orderStatus;
 
 
     /**
@@ -89,7 +89,7 @@ class Orders
      *
 
      */
-    private $tickets;
+    protected $tickets;
 
     public function __construct()
     {

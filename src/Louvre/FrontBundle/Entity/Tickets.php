@@ -16,8 +16,10 @@ class Tickets
     /**
      * @ORM\ManyToOne(targetEntity="Louvre\FrontBundle\Entity\Orders")
      * @ORM\JoinColumn(nullable=false)
+     * @var Orders
+     *
      */
-    private $order;
+    protected $order;
 
     /**
      * @var int
@@ -26,7 +28,7 @@ class Tickets
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -34,28 +36,28 @@ class Tickets
      * @ORM\Column(name="visitorFullName", type="string", length=255)
      *
      */
-    private $visitorFullName;
+    protected $visitorFullName;
 
     /**
      * @var
      *
      * @ORM\Column(name="visitorCountry", type="string", length=2555)
      */
-    private $visitorCountry;
+    protected $visitorCountry;
 
     /**
      * @var
      *
      * @ORM\Column(name="visitorBirthDate", type="date")
      */
-    private $visitorBirthDate;
+    protected $visitorBirthDate;
 
     /**
      * @var
      *
      * @ORM\Column(name="reducedPrices", type="boolean")
      */
-    private $reducedPrices;
+    protected $reducedPrices;
 
     /**
      * Get id
@@ -185,5 +187,26 @@ class Tickets
     public function getReducedPrices()
     {
         return $this->reducedPrices;
+    }
+
+
+    public function getPrice()
+    {
+
+        $diff = $this->order->getVisitDate()->diff($this->getVisitorBirthDate());
+        switch (true) {
+            case $diff->y < 4:
+                $price = 0;
+                break;
+            case $diff->y < 12:
+                $price = 8;
+                break;
+            case $diff->y >= 60:
+                $price = 12;
+                break;
+            default:
+                $price = 16;
+        }
+        return $price;
     }
 }

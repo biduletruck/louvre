@@ -16,10 +16,11 @@ class SaveBookingController extends BookinController
         if ($formOrder->isSubmitted() && $formOrder->isValid())
         {
 
-            $data = $formOrder->getData();
+            $model = $formOrder->getData();
+            $order = $this->get('louvre.front_bundle.entity.orders_factory')->createFromModel($model);
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($data);
+            $em->persist($order);
             $em->flush();
 
 

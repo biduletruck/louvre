@@ -7,3 +7,6 @@ services:
                 - '@router'
         tags:
             - {name: form.type}
+
+    louvre.front_bundle.entity.orders_factory:
+        class: Louvre\FrontBundle\Entity\OrderFactory

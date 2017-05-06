@@ -1,11 +1,10 @@
 {
-    "name": "yann/.checkout",
+    "name": "yann",
     "license": "proprietary",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "": "src/"
-        },
+            "": ["src/", "tests/"] },
         "classmap": [
             "app/AppKernel.php",
             "app/AppCache.php"
@@ -13,7 +12,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "": "tests/"
         },
         "files": [
             "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"

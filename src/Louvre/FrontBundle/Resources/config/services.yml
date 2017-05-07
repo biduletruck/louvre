@@ -10,6 +10,10 @@ services:
 
     louvre.front_bundle.entity.order_factory:
         class: Louvre\FrontBundle\Entity\OrderFactory
+        calls:
+            - method: setTicketFactory
+              arguments:
+                - '@louvre.front_bundle.entity.ticket_factory'
 
     louvre.front_bundle.entity.ticket_factory:
             class: Louvre\FrontBundle\Entity\TicketFactory

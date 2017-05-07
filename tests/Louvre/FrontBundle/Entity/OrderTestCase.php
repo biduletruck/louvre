@@ -22,7 +22,7 @@ trait OrderTestCase
         Assert::assertEquals($expectedOrder->getBuyerFirstName(), $actualOrder->getBuyerFirstName());
         Assert::assertEquals($expectedOrder->getBuyerLastName(), $actualOrder->getBuyerLastName());
         Assert::assertEquals($expectedOrder->getOrderStatus(), $actualOrder->getOrderStatus());
-        Assert::assertEquals($expectedOrder->getPurchaseDate(), $actualOrder->getPurchaseDate());
+        Assert::assertEquals($expectedOrder->getPurchaseDate()->format(DATE_ISO8601), $actualOrder->getPurchaseDate()->format(DATE_ISO8601));
         Assert::assertEquals($expectedOrder->getTickets(), $actualOrder->getTickets());
 
     }

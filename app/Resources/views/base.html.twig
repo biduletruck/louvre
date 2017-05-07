@@ -12,11 +12,10 @@
 
     </head>
     <body>
-
+{% dump(app.session) %}
     {% block menu %}
         {% include 'nav.html.twig' %}
     {% endblock %}
-
 
     {% for label, messages in app.session.flashbag %}
         {% for message in messages %}

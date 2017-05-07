@@ -30,8 +30,7 @@ abstract class BookinController extends Controller
     protected function renderOrderForm(FormInterface $formOrder)
     {
         return $this->render('@LouvreFront/reservation.html.twig', array(
-            'form' => $formOrder->createView(),
+            'form' => $formOrder->createView()
         ));
     }
-
 }

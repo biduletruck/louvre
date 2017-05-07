@@ -2,6 +2,7 @@
 
 namespace Louvre\FrontBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -85,16 +86,15 @@ class Order
 
 
     /**
-     * @var Ticket
-     *
-
+     * @var Ticket[] | ArrayCollection
      */
     protected $tickets;
 
     public function __construct()
     {
         $this->purchaseDate = new \DateTime("NOW");
-        $this->orderStatus = 0;
+        $this->orderStatus = OrderStatus::PENDING;
+        $this->tickets = new ArrayCollection();
     }
 
     /**
@@ -256,19 +256,20 @@ class Order
      *
      * @param \Louvre\FrontBundle\Entity\Ticket $tickets
      *
-     * @return Ticket
+     * @return Ticket[]
      */
-    public function setTickets(Ticket $tickets)
+    public function setTickets(array $tickets)
     {
-        $this->tickets = $tickets;
-
-        return $this->tickets;
+        foreach ($tickets as $ticket)
+        {
+            $this->tickets->add($ticket);
+        }
     }
 
     /**
      * Get tickets
      *
-     * @return \Louvre\FrontBundle\Entity\Ticket
+     * @return ArrayCollection | Ticket[]
      */
     public function getTickets()
     {

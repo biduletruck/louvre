@@ -39,8 +39,11 @@ class OrderFactoryTest extends TestCase
         $orderModel->buyerFirstName = OrderStub::BUYER_FIRST_NAME;
         $orderModel->buyerLastName = OrderStub::BUYER_LAST_NAME;
         $orderModel->ticketType = OrderStub::TICKET_TYPE;
+        $orderModel->tickets = [];
 
         $orderFactory = new OrderFactory();
+        $ticketFactory = new TicketFactory();
+        $orderFactory->setTicketFactory($ticketFactory);
         $actualOrder = $orderFactory->createFromModel($orderModel);
 
         $this->assertOrder(new OrderStub(), $actualOrder);

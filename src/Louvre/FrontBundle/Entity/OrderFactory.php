@@ -14,6 +14,18 @@ use Louvre\FrontBundle\Form\OrderModel;
 class OrderFactory
 {
     /**
+     * @var TicketFactory
+     */
+    private $ticketFactory;
+
+    public function setTicketFactory(TicketFactory $ticketFactory)
+    {
+        $this->ticketFactory = $ticketFactory;
+    }
+
+
+
+    /**
      * @param OrderModel $orderModel
      * @return Order
      */
@@ -25,8 +37,11 @@ class OrderFactory
         $order->setBuyerEmail($orderModel->buyerEmail);
         $order->setBuyerFirstName($orderModel->buyerFirstName);
         $order->setBuyerLastName($orderModel->buyerLastName);
+        $order->setTickets($this->ticketFactory->createFromTicketModelCollection($orderModel->tickets));
 
         return $order;
     }
+
+
 
 }

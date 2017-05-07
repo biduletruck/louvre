@@ -61,7 +61,7 @@ class OrderType extends AbstractType
                 'label' => 'Votre Email : ',
                 'attr' => array('class' => 'form-control')
             ))
-            ->add('tickets', TicketType::class)
+            ->add('tickets', ChoiceType->)
             ->add('save',      SubmitType::class,array(
                 'attr' => array('class' => 'btn btn-primary')
             ))

@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/stripe.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Projet Stripe</span> Mentorat OpenClassroom</h1>
+            </div>
+            <div id="status">
+                <form action="" method="POST">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_aYn42rDsZyeFrQ7kHbjAIz05"
+                            data-amount="999"
+                            data-name="YC-DESIGN.FR"
+                            data-description="Widget"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="fr"
+                            data-zip-code="false"
+                            data-currency="eur">
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

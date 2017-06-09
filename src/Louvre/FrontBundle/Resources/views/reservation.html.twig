@@ -80,7 +80,7 @@
 
 
         <div class="form-group">
-            <a href="#" id="add_ticket" class="btn btn-default">Ajouter un ticket</a>
+            <a href="#" id="add_ticket" class="btn btn-info">Ajouter un ticket</a>
         </div>
 
 
@@ -137,7 +137,7 @@
 
 
             function addDeleteLink($prototype) {
-                var $deleteLink = $('<div class="form-group pull-right"><a href="#" class="btn btn-danger">Supprimer</a></div> ');
+                var $deleteLink = $('<div class="form-group pull-right"><a href="#" class="btn btn-xs btn-danger">Supprimer</a></div> ');
                 $prototype.append($deleteLink);
                 $deleteLink.click(function(e) {
                     $prototype.remove();

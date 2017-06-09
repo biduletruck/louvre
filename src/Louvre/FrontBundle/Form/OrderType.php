@@ -69,7 +69,8 @@ class OrderType extends AbstractType
             ))
 
             ->add('save',      SubmitType::class,array(
-                'attr' => array('class' => 'btn btn-primary')
+                'label_format' => 'Réserver !',
+                'attr' => array('class' => 'btn btn-success')
             ))
             ->setAction($this->router
                                     ->generate('louvre_front_saveorder'))

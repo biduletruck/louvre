@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Ticket
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Order.php")
+     * @ORM\ManyToOne(targetEntity="Order")
      * @ORM\JoinColumn(nullable=false)
      * @var Order
      *

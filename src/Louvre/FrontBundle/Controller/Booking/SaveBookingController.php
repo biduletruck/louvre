@@ -3,8 +3,6 @@
 namespace Louvre\FrontBundle\Controller\Booking;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class SaveBookingController extends BookinController
@@ -29,11 +27,7 @@ class SaveBookingController extends BookinController
 
             $this->get('session')->getFlashBag()->add('error', 'Merci pour votre réservation');
 
-
-           // $this->get('session')->setFlash('notice', 'Merci pour votre réservation');
             return $this->redirect($this->generateUrl('louvre_front_showorder'));
-
-
 
             //return new Response('Achat validé');
         }

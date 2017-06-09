@@ -2,6 +2,7 @@
 
 namespace Louvre\FrontBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -17,10 +18,25 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('visitorFullName')
-            ->add('visitorCountry', CountryType::class, array('label' => 'Pays visiteur'))
-            ->add('visitorBirthDate', BirthdayType::class, array('label' => 'Date de naissance'))
-            ->add('reducedPrices', CheckboxType::class, array('required' => false, 'label' => 'Avez-vous une réduction ?') );
+            ->add('visitorFullName', TextType::class, array(
+                'label'=> 'Nom du visiteur',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('visitorCountry', CountryType::class, array(
+                'label' => 'Pays visiteur',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('visitorBirthDate', BirthdayType::class, array(
+                'label' => 'Date de naissance',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'type' => 'date'
+                    )
+            ))
+            ->add('reducedPrices', CheckboxType::class, array(
+                'required' => false,
+                'label' => 'Avez-vous une réduction ?'
+            ));
     }
     
     /**

@@ -22,12 +22,12 @@ class BookingController extends Controller
 
         if ($formOrder->isSubmitted() && $formOrder->isValid())
         {
-            /*
+
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($order);
             $em->flush();
-            */
+
 
             return new Response('Achat validé');
         }

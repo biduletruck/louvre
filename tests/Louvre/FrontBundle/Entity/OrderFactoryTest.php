@@ -41,12 +41,28 @@ class OrderFactoryTest extends TestCase
         $orderModel->ticketType = OrderStub::TICKET_TYPE;
         $orderModel->tickets = [];
 
-        $orderFactory = new OrderFactory();
-        $ticketFactory = new TicketFactory();
-        $orderFactory->setTicketFactory($ticketFactory);
+        $orderFactory = $this->getOrderFactoryService();
         $actualOrder = $orderFactory->createFromModel($orderModel);
 
         $this->assertOrder(new OrderStub(), $actualOrder);
+    }
+
+    /**
+     * @return OrderFactory
+     */
+    protected function getOrderFactoryService()
+    {
+        $orderFactory = new OrderFactory();
+        $orderFactory->setTicketFactory($this->getTicketFactoryService());
+        return $orderFactory;
+    }
+
+    /**
+     * @return TicketFactory
+     */
+    protected function getTicketFactoryService()
+    {
+        return new TicketFactory();
     }
 
 }

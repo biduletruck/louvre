@@ -45,7 +45,7 @@ class TicketType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Louvre\FrontBundle\Entity\Ticket'
+            'data_class' => 'Louvre\FrontBundle\Form\TicketModel'
         ));
     }
 

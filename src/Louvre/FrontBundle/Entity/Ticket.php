@@ -9,12 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  * Ticket
  *
  * @ORM\Table(name="tickets")
- * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\TicketsRepository")
+ * @ORM\Entity(repositoryClass="\Louvre\FrontBundle\Repository\TicketRepository")
  */
 class Ticket
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Order")
+     * @ORM\ManyToOne(targetEntity="\Louvre\FrontBundle\Entity\Order", inversedBy="tickets")
      * @ORM\JoinColumn(nullable=false)
      * @var Order
      *

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Order
  *
  * @ORM\Table(name="orders")
- * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\OrdersRepository")
+ * @ORM\Entity(repositoryClass="Louvre\FrontBundle\Repository\OrderRepository")
  *
  */
 
@@ -86,6 +86,7 @@ class Order
 
 
     /**
+     * @ORM\OnetoMany(targetEntity="\Louvre\FrontBundle\Entity\Ticket" , mappedBy="order" , cascade={"persist"})
      * @var Ticket[] | ArrayCollection
      */
     protected $tickets;
@@ -254,14 +255,14 @@ class Order
     /**
      * Set tickets
      *
-     * @param \Louvre\FrontBundle\Entity\Ticket $tickets
+     * @param \Louvre\FrontBundle\Entity\Ticket[] $tickets
      *
-     * @return Ticket[]
      */
     public function setTickets(array $tickets)
     {
         foreach ($tickets as $ticket)
         {
+            $ticket->setOrder($this);
             $this->tickets->add($ticket);
         }
     }

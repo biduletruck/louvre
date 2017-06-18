@@ -23,8 +23,6 @@ class OrderFactory
         $this->ticketFactory = $ticketFactory;
     }
 
-
-
     /**
      * @param OrderModel $orderModel
      * @return Order

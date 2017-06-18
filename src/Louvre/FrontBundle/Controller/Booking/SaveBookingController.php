@@ -18,7 +18,8 @@ class SaveBookingController extends BookinController
 
             $model = $formOrder->getData();
 
-            $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($model);
+            $orderFactory = $this->get('louvre.front_bundle.entity.order_factory');
+            $order = $orderFactory->createFromModel($model);
 
             $em = $this->getDoctrine()->getManager();
 

@@ -47,7 +47,6 @@ class OrderModel
     /**
      * @var TicketModel[]
      * @Assert\Valid()
-     * @Assert\Type(type="Louvre\FrontBundle\Entity\Ticket")
      */
     public $tickets;
 

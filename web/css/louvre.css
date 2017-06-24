@@ -1,0 +1,47 @@
+body
+{
+    padding-top: 75px;
+    background: url('../imgs/louvre_by_night.jpg') no-repeat;
+    background-size: 100%;
+    background-color: gray;
+}
+
+footer
+{
+    height: 75px;
+    width: auto;
+    background-color: black;
+    line-height: 75px;
+}
+
+footer a:visited {
+    color: darkgrey;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:active, a:focus {
+    color: darkgrey;
+    text-decoration: none;
+}
+
+#messageAccueil
+{
+    color: white;
+}
+
+.navbar-brand
+{
+    padding: 0px;
+}
+
+.navbar-brand>img
+{
+    height: 100%;
+    padding: 2px;
+    width: auto;
+}

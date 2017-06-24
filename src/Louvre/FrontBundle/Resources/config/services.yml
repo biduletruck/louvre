@@ -1,4 +1,25 @@
 services:
-#    louvre_front.example:
-#        class: Louvre\FrontBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    louvre.front_bundle.form.orders_type:
+        class: Louvre\FrontBundle\Form\OrderType
+        calls:
+            - method: setRouter
+              arguments:
+                - '@router'
+        tags:
+            - {name: form.type}
+
+    louvre.front_bundle.entity.order_factory:
+        class: Louvre\FrontBundle\Entity\OrderFactory
+        calls:
+            - method: setTicketFactory
+              arguments:
+                - '@louvre.front_bundle.entity.ticket_factory'
+
+    louvre.front_bundle.entity.ticket_factory:
+            class: Louvre\FrontBundle\Entity\TicketFactory
+
+    louvre.front_bundle.repository.order_repository:
+        class: Louvre\FrontBundle\Repository\OrderRepository
+                factory: ['@doctrine.orm.default_entity_manager', getRepository]
+                arguments:
+                    - Louvre\FrontBundle\Entity\Order

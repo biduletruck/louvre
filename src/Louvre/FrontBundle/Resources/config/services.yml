@@ -20,6 +20,6 @@ services:
 
     louvre.front_bundle.repository.order_repository:
         class: Louvre\FrontBundle\Repository\OrderRepository
-                factory: ['@doctrine.orm.default_entity_manager', getRepository]
-                arguments:
-                    - Louvre\FrontBundle\Entity\Order
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+                - Louvre\FrontBundle\Entity\Order

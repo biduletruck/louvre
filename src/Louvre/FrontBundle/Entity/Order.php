@@ -87,7 +87,8 @@ class Order
 
 
     /**
-     * @ORM\OnetoMany(targetEntity="\Louvre\FrontBundle\Entity\Ticket" , mappedBy="order" , cascade={"persist"})
+     *
+     * @ORM\OneToMany(targetEntity="\Louvre\FrontBundle\Entity\Ticket" , mappedBy="order" , cascade={"persist"})
      * @var Ticket[] | ArrayCollection
      */
     protected $tickets;

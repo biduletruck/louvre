@@ -21,15 +21,21 @@ class SaveBookingController extends BookinController
             $orderFactory = $this->get('louvre.front_bundle.entity.order_factory');
             $order = $orderFactory->createFromModel($model);
 
-          //  $this->container->get('session')->
+            $session = $this->ifExistSessionCommand($request);
 
+            $newCommand = $this->addCommandOnSession($session, $order);
+
+
+            dump($newCommand);
+
+/*
             if ($this->checkSumOfVisitors($order))
             {
                 return $this->saveOrderInBase($order);
             }else{
                 $this->get('session')->getFlashBag()->add('error', 'Désolé plus de place pour cette date');
             }
-
+*/
         }
 
         return $this->renderOrderForm($formOrder);
@@ -57,6 +63,60 @@ class SaveBookingController extends BookinController
     public function checkSumOfVisitors($order)
     {
         return $this->container->get('louvre_front.repository.order_repository.count_visitors', $order->getVisitDate()) < self::MAXVISITORS;
+    }
+
+    /**
+     * @param Request $request
+     * @return null|\Symfony\Component\HttpFoundation\Session\SessionInterface
+     */
+    public function ifExistSessionCommand(Request $request)
+    {
+        $session = $request->getSession();
+        if (!$session->has('command')) {
+            $session->set('command', array());
+        }
+        return $session;
+    }
+
+    /**
+     * @param $session
+     * @param $order
+     * @return mixed
+     */
+    public function addCommandOnSession($session, $order)
+    {
+        $newCommand = $session->get('command');
+
+        $newCommand['buyerFirstName'] = $order->getBuyerFirstName();
+        $newCommand['buyerLastName'] = $order->getBuyerLastName();
+        $newCommand['buyerEmail'] = $order->getBuyerEmail();
+        $newCommand['numberCommand'] = $order->getNumberCommand();
+        $newCommand['ticketType'] = $order->getTicketType();
+        $newCommand['visitDate'] = $order->getVisitDate();
+        $newCommand['totalPrice'] = 0;
+        $newCommand['ticket'] = [];
+        $tickets = $order->getTickets();
+        $i = 0;
+        foreach ($tickets as $ticket) {
+            $ticketPrices = $ticket->getReducedPrices() == 0 ? $ticket->getPrice() : $ticket->getPrice() / 2;
+            $newCommand['ticket'][$i]['prix'] = $ticketPrices;
+            $newCommand['totalPrice'] += $ticketPrices;
+            $newCommand['ticket'][$i]['nom'] = $ticket->getVisitorFullName();
+            $newCommand['ticket'][$i]['reduction'] = $ticket->getReducedPrices();
+            $i++;
+        }
+        $session->set('command', $newCommand);
+        return $newCommand;
+    }
+
+    /**
+     * @param Request $request
+     * @param $name
+     */
+    public function removeCommandSession(Request $request, $name)
+    {
+        $session = $request->getSession();
+        $session->remove($name);
     }
 
 

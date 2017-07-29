@@ -13,10 +13,4 @@ class ShowBookingController extends BookinController
 
         return $this->renderOrderForm($formOrder);
     }
-
-
-
-
-
-
 }

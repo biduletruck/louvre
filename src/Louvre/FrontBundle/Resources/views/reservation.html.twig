@@ -10,11 +10,22 @@
 
 
 
+
 <div class="container-fluid">
 
     <div class="well">
             <h3>Formulaire de réservation</h3>
     </div>
+    {% for flashMessage in app.session.flashbag.get('error') %}
+
+        <div class="alert alert-danger alert-dismissable fade in">{{ flashMessage }}</div>
+
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+
+        <div class="alert alert-success alert-dismissable fade in">{{ flashMessage }}</div>
+
+    {% endfor %}
     <div class="well col-xs-12 col-md-4 col-md-push-4 col-lg-4 col-lg-push-4">
         {{ form_start(form, {'attr': {'class': 'form','novalidate':'novalidate'}}) }}
 

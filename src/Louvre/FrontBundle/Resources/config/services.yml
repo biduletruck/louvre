@@ -23,3 +23,11 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
                 - Louvre\FrontBundle\Entity\Order
+
+    louvre_front.repository.order_repository:
+        class: Louvre\FrontBundle\Repository\OrderRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+                - Louvre\FrontBundle\Entity\Order
+        calls:
+            - [countTicketsByDay, ['@?']]

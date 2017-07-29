@@ -85,6 +85,13 @@ class Order
      */
     protected $orderStatus;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numberCommand", type="string", length=255)
+     */
+    protected $numberCommand;
+
 
     /**
      *
@@ -301,5 +308,58 @@ class Order
     public function getOrderStatus()
     {
         return $this->orderStatus;
+    }
+
+    /**
+     * Set numberCommand
+     *
+     *
+     * @return Order
+     */
+    public function setNumberCommand()
+    {
+        $this->numberCommand = $this->generateNumberCommand();
+
+        return $this;
+    }
+
+    /**
+     * Get numberCommand
+     *
+     * @return string
+     */
+    public function getNumberCommand()
+    {
+        return $this->numberCommand;
+    }
+
+    /**
+     * Add ticket
+     *
+     * @param \Louvre\FrontBundle\Entity\Ticket $ticket
+     *
+     * @return Order
+     */
+    public function addTicket(\Louvre\FrontBundle\Entity\Ticket $ticket)
+    {
+        $this->tickets[] = $ticket;
+
+        return $this;
+    }
+
+    /**
+     * Remove ticket
+     *
+     * @param \Louvre\FrontBundle\Entity\Ticket $ticket
+     */
+    public function removeTicket(\Louvre\FrontBundle\Entity\Ticket $ticket)
+    {
+        $this->tickets->removeElement($ticket);
+    }
+
+
+    public function generateNumberCommand()
+    {
+        return uniqid('LPC');
     }
 }

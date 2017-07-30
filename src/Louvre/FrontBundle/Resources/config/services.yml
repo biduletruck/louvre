@@ -31,3 +31,10 @@ services:
                 - Louvre\FrontBundle\Entity\Order
         calls:
             - [countTicketsByDay, ['@?']]
+
+    louvre_front.services.command_manager.add_command:
+        class: Louvre\FrontBundle\Services\CommandManager
+        arguments:
+            - Louvre\FrontBundle\Entity\Order
+
+

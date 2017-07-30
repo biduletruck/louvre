@@ -21,12 +21,10 @@ class SaveBookingController extends BookinController
             $orderFactory = $this->get('louvre.front_bundle.entity.order_factory');
             $order = $orderFactory->createFromModel($model);
 
-            $session = $this->ifExistSessionCommand($request);
-
-            $newCommand = $this->addCommandOnSession($session, $order);
+            $newCommand = $this->addCommandOnSession($order);
 
 
-            dump($newCommand);
+            dump($this->get('session')->get('command'));
 
 /*
             if ($this->checkSumOfVisitors($order))
@@ -69,9 +67,9 @@ class SaveBookingController extends BookinController
      * @param Request $request
      * @return null|\Symfony\Component\HttpFoundation\Session\SessionInterface
      */
-    public function ifExistSessionCommand(Request $request)
+    public function ifExistSessionCommand()
     {
-        $session = $request->getSession();
+        $session = $this->get('session');
         if (!$session->has('command')) {
             $session->set('command', array());
         }
@@ -79,33 +77,34 @@ class SaveBookingController extends BookinController
     }
 
     /**
-     * @param $session
      * @param $order
      * @return mixed
      */
-    public function addCommandOnSession($session, $order)
+    public function addCommandOnSession($order)
     {
-        $newCommand = $session->get('command');
+        $this->ifExistSessionCommand();
+
+        $newCommand = $this->get('session')->get('command');
 
         $newCommand['buyerFirstName'] = $order->getBuyerFirstName();
         $newCommand['buyerLastName'] = $order->getBuyerLastName();
         $newCommand['buyerEmail'] = $order->getBuyerEmail();
         $newCommand['numberCommand'] = $order->getNumberCommand();
-        $newCommand['ticketType'] = $order->getTicketType();
+        $newCommand['ticketType'] = $order->getTicketType() === 1 ? "Billet journée" : "Billet demi-journée";
         $newCommand['visitDate'] = $order->getVisitDate();
         $newCommand['totalPrice'] = 0;
         $newCommand['ticket'] = [];
         $tickets = $order->getTickets();
         $i = 0;
         foreach ($tickets as $ticket) {
-            $ticketPrices = $ticket->getReducedPrices() == 0 ? $ticket->getPrice() : $ticket->getPrice() / 2;
+            $ticketPrices = ($ticket->getReducedPrices() == false ? $ticket->getPrice() : $ticket->getPrice() / 2) / $order->getTicketType();
             $newCommand['ticket'][$i]['prix'] = $ticketPrices;
             $newCommand['totalPrice'] += $ticketPrices;
             $newCommand['ticket'][$i]['nom'] = $ticket->getVisitorFullName();
             $newCommand['ticket'][$i]['reduction'] = $ticket->getReducedPrices();
             $i++;
         }
-        $session->set('command', $newCommand);
+        $this->get('session')->set('command', $newCommand);
         return $newCommand;
     }
 

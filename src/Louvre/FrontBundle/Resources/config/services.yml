@@ -24,7 +24,7 @@ services:
         arguments:
                 - Louvre\FrontBundle\Entity\Order
 
-    louvre_front.repository.order_repository:
+    louvre_front.repository.order_repository.count_visitors:
         class: Louvre\FrontBundle\Repository\OrderRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:

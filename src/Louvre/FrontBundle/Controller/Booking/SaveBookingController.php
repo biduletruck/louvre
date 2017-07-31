@@ -33,6 +33,7 @@ class SaveBookingController extends BookinController
             }else{
                 $this->get('session')->getFlashBag()->add('error', 'Désolé plus de place pour cette date');
             }
+
 */
         }
 

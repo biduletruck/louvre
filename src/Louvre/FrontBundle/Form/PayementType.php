@@ -43,10 +43,7 @@ class PayementType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Command',
-            'validation_groups' => array('payment'),
-        ));
+        $resolver->setDefaults( array('Louvre\FrontBundle\Entity\OrderFactory'));
     }
 
     public function getBlockPrefix()

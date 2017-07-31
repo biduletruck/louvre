@@ -19,17 +19,17 @@
                     <p>Aucun billet n'a été ajoutés</p>
                 {% else %}
                     <div class="text-right">
-                        <a id="btn-remove-list" class="btn btn-danger" href="{{ path('remove_tickets_session') }}" onclick="return confirm('Si vous supprimez la liste vous serez redirigé vers la page d\'accueil. Vous devrez alors choisir à nouveau une date de visite.')">Vider la liste</a>
+                        <a id="btn-remove-list" class="btn btn-danger" href="#" onclick="return confirm('Si vous supprimez la liste vous serez redirigé vers la page d\'accueil. Vous devrez alors choisir à nouveau une date de visite.')">Vider la liste</a>
                     </div>
                     <div class="list-tickets-container">
                         <h4>Récapitulatif de vos billets</h4>
                         <table class="table table-striped">
                             {% for key, ticket in command.tickets %}
                                 <tr>
-                                    <td>{{ ticket.firstname }} </td>
-                                    <td>{{ ticket.lastname }}</td>
-                                    <td>{{ ticket.price }} €</td>
-                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><a class="btn btn-danger" href="{{ path('delete_ticket_session', {'id': (key) }) }}"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                    <td>{{ ticket.nom }} </td>
+
+                                    <td>{{ ticket.prix }} €</td>
+                                    <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><a class="btn btn-danger" href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
                                 </tr>
                             {% endfor %}
                         </table>
@@ -39,10 +39,10 @@
 
             <div class="col-lg-12">
                 <div class="quantity-container col-lg-5">
-                    <p>Nombre de billets: <span>{{ command.quantity }} </span></p>
+                    <p>Nombre de billets: <span>{{ command.tickets|length }} </span></p>
                 </div>
                 <div class="total-container col-lg-6 col-lg-offset-1">
-                    <p>Total de votre commande: <span>{{ command.total }} €</span></p>
+                    <p>Total de votre commande: <span>{{ command.totalPrice }} €</span></p>
                 </div>
             </div>
 
@@ -103,15 +103,13 @@
     </div>
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-{% endblock %}
+{% block scripts %}
 
-{% block javascripts %}
-    {{ parent() }}
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        let stripe = Stripe('{{ stripe_public }}');
+
+        let stripe = Stripe('pk_test_aYn42rDsZyeFrQ7kHbjAIz05');
+
         let elements = stripe.elements();
         const style = {
             base: {

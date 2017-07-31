@@ -29,7 +29,7 @@ class CommandManager
         $newCommand['buyerLastName'] = $order->getBuyerLastName();
         $newCommand['buyerEmail'] = $order->getBuyerEmail();
         $newCommand['numberCommand'] = $order->getNumberCommand();
-        $newCommand['ticketType'] = $order->getTicketType() === 1 ? "Billet journée" : "Billet demi-journée";
+        $newCommand['ticketType'] = $order->getTicketType() == 1 ? "Billet journée" : "Billet demi-journée";
         $newCommand['visitDate'] = $order->getVisitDate();
         $newCommand['totalPrice'] = 0;
         $newCommand['ticket'] = [];

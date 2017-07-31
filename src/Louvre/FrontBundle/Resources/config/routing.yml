@@ -12,6 +12,6 @@ louvre_front_saveorder:
     defaults: { _controller: LouvreFrontBundle:Booking/SaveBooking:saveOrder}
     methods: [POST]
 
-louvre_front_prepareorder:
+louvre_front_prepare_order:
     path:     /order/prepare
     defaults: { _controller: LouvreFrontBundle:Payments/Payments:paymentOrder}

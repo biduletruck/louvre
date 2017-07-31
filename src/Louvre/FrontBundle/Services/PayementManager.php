@@ -32,7 +32,7 @@ class PayementManager
         $request = $this->request->getCurrentRequest();
         $secret_key = $this->container->getParameter('stripe_secret_key');
         Stripe::setApiKey($secret_key);
-        //$total = $this->command
+        $total = 100;
         $token = $request->get('stripe_public_key');
         try {
             Charge::create(array(

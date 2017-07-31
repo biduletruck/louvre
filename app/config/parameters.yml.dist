@@ -14,7 +14,7 @@ parameters:
     mailer_password:  1f0383154a0fd5
     mailer_auth_mode: cram-md5
     mailer_port: 2525
-    stripe_public_key: pk_test_aYn42rDsZyeFrQ7kHbjAIz05
-    stripe_secret_key: sk_test_1n1QFALEzFsOUMgT2gGYLiU8
+    stripe_public: pk_test_aYn42rDsZyeFrQ7kHbjAIz05
+    stripe_secret: sk_test_1n1QFALEzFsOUMgT2gGYLiU8
     secret: 1db42e9a8574396a5b2ed945ac73fbef18f0ac20
 

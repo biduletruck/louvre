@@ -38,9 +38,4 @@ class TicketModel
     public $reducedPrices;
 
 
-    public function isValidTicket()
-    {
-        // to do;
-    }
-
 }

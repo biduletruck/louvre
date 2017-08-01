@@ -25,6 +25,7 @@ class TicketFactory
         $ticket->setVisitorBirthDate($ticketModel->visitorBirthDate);
         $ticket->setVisitorCountry($ticketModel->visitorCountry);
         $ticket->setReducedPrices($ticketModel->reducedPrices);
+        //$ticket->getPrice();
 
         return $ticket;
     }

@@ -33,6 +33,7 @@ class PayementType extends AbstractType
                     'class' => 'col-lg-3 control-label',
                 ),
             ))
+            ->add('order', OrderType::class)
             ->add('submit', SubmitType::class, array(
                 'label' => 'Terminer la commande',
                 'attr' => array(

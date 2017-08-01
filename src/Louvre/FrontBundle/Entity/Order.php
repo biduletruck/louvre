@@ -362,4 +362,7 @@ class Order
     {
         return uniqid('LPC');
     }
+
+// créer méthode getTotalPrice
+
 }

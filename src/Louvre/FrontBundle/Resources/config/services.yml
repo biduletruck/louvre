@@ -37,4 +37,10 @@ services:
         arguments:
             - Louvre\FrontBundle\Entity\Order
 
+    louvre_front.controller_payments.payments_form:
+        class: Louvre\FrontBundle\Controller\Payments\PaymentsController
+        calls:
+            - [paymentOrderAction, ['@?']]
+            - [setContainer, ['@service_container']]
+
 

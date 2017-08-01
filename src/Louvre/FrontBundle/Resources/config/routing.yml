@@ -15,3 +15,4 @@ louvre_front_saveorder:
 louvre_front_prepare_order:
     path:     /order/prepare
     defaults: { _controller: LouvreFrontBundle:Payments/Payments:paymentOrder}
+    methods: [POST]

@@ -59,6 +59,8 @@ class Ticket
      */
     protected $reducedPrices;
 
+
+
     /**
      * Get id
      *

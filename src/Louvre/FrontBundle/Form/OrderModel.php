@@ -51,31 +51,5 @@ class OrderModel
     public $tickets;
 
 
-    /**
-     * @Assert\Callback
-     */
-    public function ticketIsValid(ExecutionContextInterface $context)
-    {
-        $dateValidator = new \DateTime("NOW");
-
-        if(!empty($this->visitDate) )
-        {
-            if ( ($this->ticketType === "1") && ($this->visitDate->format("Y-m-d") === date("Y-m-d")) )
-            {
-                if ( $dateValidator->format("Y-m-d H:i") > date("Y-m-d 14:00") )
-                {
-                    $context->buildViolation('Il n\'est pas possible de commander un billet journée après 14H00!')
-                        ->atPath('ticketType')
-                        ->addViolation();}
-            }
-        }
-
-        if(empty($this->tickets))
-        {
-            // a faire $context;
-        }
-
-    }
-
 
 }

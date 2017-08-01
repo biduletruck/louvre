@@ -2,7 +2,11 @@
 
 namespace Louvre\FrontBundle\Controller\Booking;
 
+
+use Louvre\FrontBundle\Controller\Payments\PaymentsController;
 use Louvre\FrontBundle\Entity\Order;
+use Louvre\FrontBundle\Entity\OrderFactory;
+use Louvre\FrontBundle\Form\OrderModel;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -23,8 +27,9 @@ class SaveBookingController extends BookinController
             $orderFactory = $this->get('louvre.front_bundle.entity.order_factory');
             $order = $orderFactory->createFromModel($model);
 
-            $command = $this->container->get('louvre_front.services.command_manager.add_command')->addNewCommand($order);
-            dump($command);
+            $this->container->get('louvre_front.controller_payments.payments_form');
+            //dump($order);
+
 
          /*
             if ($this->checkSumOfVisitors($order))

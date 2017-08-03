@@ -8,11 +8,8 @@
 
 namespace Louvre\FrontBundle\Controller\Payments;
 
-use Louvre\FrontBundle\Entity\OrderFactory;
-use Louvre\FrontBundle\Form\OrderModel;
 use Louvre\FrontBundle\Form\OrderType;
-use Louvre\FrontBundle\Form\PayementModel;
-use Louvre\FrontBundle\Form\PayementType;
+use Louvre\FrontBundle\Form\TicketType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,7 +22,7 @@ class PaymentsController extends Controller
     public function paymentOrderAction(Request $request)
     {
 
-        $form = $this->createForm(OrderType::class, new OrderModel());
+        $form = $this->createForm(OrderType::class);
         $form->handleRequest($request);
         return $this->render('@LouvreFront/prepare.html.twig', array(
             'form' => $form->getData()

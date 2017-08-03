@@ -59,6 +59,13 @@ class Ticket
      */
     protected $reducedPrices;
 
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float")
+     **/
+    protected $price;
+
 
 
     /**
@@ -192,10 +199,17 @@ class Ticket
     }
 
 
-    public function getPrice()
-    {
 
-        $diff = $this->order->getVisitDate()->diff($this->getVisitorBirthDate());
+
+    /**
+     * Set price
+     *
+     *
+     * @return Ticket
+     */
+    public function setPrice()
+    {
+      /*  $diff = $this->order->getVisitDate()->diff($this->getVisitorBirthDate());
         switch (true) {
             case $diff->y < 4:
                 $price = 0;
@@ -208,7 +222,21 @@ class Ticket
                 break;
             default:
                 $price = 16;
-        }
-        return $price;
+        }*/
+
+        $this->price = 50;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float
+     */
+    public function getPrice()
+    {
+
+        return $this->price ;
     }
 }

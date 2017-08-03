@@ -60,6 +60,13 @@ class Ticket
      */
     protected $reducedPrices;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    protected  $price;
+
 
     /**
      * Get id
@@ -195,12 +202,13 @@ class Ticket
     /**
      * Get price
      *
-     * @return float
+     * @return int
      */
-    public function getPrice()
+    public function getPrice($visitDate)
     {
 
-         $diff = date_diff(new \DateTime(),$this->getVisitorBirthDate());
+        // $diff = date_diff(new \DateTime(),$this->getVisitorBirthDate());
+        $diff = date_diff($visitDate,$this->getVisitorBirthDate());
          //$diff = $this->order->getVisitDate()->diff($this->getVisitorBirthDate());
 
         switch (true) {

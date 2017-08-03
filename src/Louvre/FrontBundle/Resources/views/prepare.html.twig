@@ -39,7 +39,7 @@
                     <thead>
                     <tr>
                         <th>Nom du visiteur</th>
-                        <th>Billet journée</th>
+                        <th>Type de billet</th>
                         <th>Tarif</th>
                     </tr>
                     </thead>
@@ -51,12 +51,31 @@
                     </tr>
                     </tfoot>
                     <tbody>
-                    <tr>
 
-                        <td>...</td>
-                        <td>...</td>
+                        {% for key, ticket in form.order.tickets %}
+                        <tr>
+                            <td>
+                                {{ ticket.visitorFullName}}
+                            </td>
 
-                    </tr>
+                            <td>
+                                {% if form.order.ticketType == 1 %}
+                                    Billet Journée
+                                {% else %}
+                                    Billet demi-journée
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {{ form.price[key] }}.00 €
+                                {% if ticket.reducedPrices == true %}
+                                    (un justificatif sera necessaire)
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+
 
                     </tbody>
                 </table>

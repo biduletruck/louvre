@@ -32,8 +32,8 @@ class PaymentsController extends Controller
         $payementModel->order = $orderModel;
 
         $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($orderModel);
-        $payementModel->totalAmount = $order->getTotalAmount() / $order->getTicketType();
-        $payementModel->price = $order->getAmount();
+        $payementModel->totalAmount = $order->getTotalAmount($order->getVisitDate()) / $order->getTicketType();
+        $payementModel->price = $order->getAmount($order->getVisitDate());
         $payementModel->numberCommand = $order->getNumberCommand();
         $payementForm = $this->createForm(PayementType::class, $payementModel);
 

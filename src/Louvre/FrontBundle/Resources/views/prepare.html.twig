@@ -6,9 +6,66 @@
 
 
 {% block body %}
-    {{ parent() }}
 
-    <h1 class="title">Page de payement</h1>
+    <!--
+    +totalAmount: 6
+  +price: array:1
+  +numberCommand: "LPC598333e919a6a"
+  +order: OrderModel {
+    +visitDate: DateTime
+    +ticketType: "2"
+    +buyerLastName: "yann"
+    +buyerFirstName: "clemennt"
+    +buyerEmail: "clementyann@free.fr"
+    +tickets: array:1
+
+    -->
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <h1>Détail de votre commande</h1>
+                <form class="form">
+                    <div class="form-control">
+                        <input type="text" value="{{ form.order.buyerFirstName}}">
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-12">
+                <table class="table table-hover">
+
+                    <thead>
+                    <tr>
+                        <th>Nom du visiteur</th>
+                        <th>Billet journée</th>
+                        <th>Tarif</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot >
+                    <tr class="text-center">
+                        <td>Nombre de billet(s) {{ form.price|length }}<td>
+                        <td>Total de la commande: {{ form.totalAmount }}.00€</td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr>
+
+                        <td>...</td>
+                        <td>...</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
 
 
 {{ dump(form) }}

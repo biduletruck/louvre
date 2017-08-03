@@ -9,22 +9,19 @@ class PayementModel
 
 
     /**
-     * @var string
-     *
+     * @var int
      */
-    public $firstname;
+    public $totalAmount;
+
+    /**
+     * @var array
+     */
+    public $price;
 
     /**
      * @var string
-     *
      */
-    public $lastname;
-
-    /**
-     * @var string
-     *
-     */
-    public $email;
+    public $numberCommand;
 
     /**
      * @var OrderModel

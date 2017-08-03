@@ -363,6 +363,33 @@ class Order
         return uniqid('LPC');
     }
 
-// créer méthode getTotalPrice
+
+    public function getTotalAmount()
+    {
+        $amount = 0;
+
+        foreach ($this->getTickets() as $ticket)
+        {
+            $amount += $ticket->getPrice();
+        }
+
+        return $amount;
+    }
+
+    public function getAmount()
+    {
+
+        $price = [];
+
+
+        foreach ($this->getTickets() as $ticket)
+        {
+            $price[] = $ticket->getPrice();
+        }
+
+        return $price;
+
+
+    }
 
 }

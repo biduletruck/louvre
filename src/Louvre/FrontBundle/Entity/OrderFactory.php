@@ -37,7 +37,6 @@ class OrderFactory
         $order->setBuyerLastName($orderModel->buyerLastName);
         $order->setNumberCommand();
         $order->setTickets($this->ticketFactory->createFromTicketModelCollection($orderModel->tickets));
-
         return $order;
     }
 

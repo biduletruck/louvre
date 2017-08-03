@@ -34,7 +34,6 @@ class TicketType extends AbstractType
                     'type' => 'date'
                     )
             ))
-
             ->add('reducedPrices', CheckboxType::class, array(
                 'required' => false,
                 'label' => 'Avez-vous une réduction ?'

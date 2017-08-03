@@ -2,6 +2,7 @@
 
 namespace Louvre\FrontBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,23 +16,17 @@ class PayementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class, array(
-                'label' => 'Prenom',
+            ->add('totalAmount', IntegerType::class, array(
+                'label' => 'Total',
                 'label_attr' => array(
                     'class' => 'col-lg-3 control-label',
                 ),
             ))
-            ->add('lastname', TextType::class, array(
-                'label' => 'Nom',
+            ->add('numberCommand',TextType::class, array(
+                'label' => 'Numero de commande',
                 'label_attr' => array(
                     'class' => 'col-lg-3 control-label',
-                ),
-            ))
-            ->add('email', EmailType::class, array(
-                'label' => 'email',
-                'label_attr' => array(
-                    'class' => 'col-lg-3 control-label',
-                ),
+                )
             ))
             ->add('order', OrderType::class)
             ->add('submit', SubmitType::class, array(

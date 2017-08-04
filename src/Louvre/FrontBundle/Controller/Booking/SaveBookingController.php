@@ -27,7 +27,7 @@ class SaveBookingController extends BookinController
             $orderFactory = $this->get('louvre.front_bundle.entity.order_factory');
             $order = $orderFactory->createFromModel($model);
 
-            $this->container->get('louvre_front.controller_payments.payments_form');
+            return $this->container->get('louvre_front.controller.save_afert_payement_controller', $order);
             //dump($order);
 
 

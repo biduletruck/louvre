@@ -36,4 +36,8 @@ services:
             - [paymentOrderAction, ['@?']]
             - [setContainer, ['@service_container']]
 
+    louvre_front.controller.save_afert_payement_controller:
+        class: Louvre\FrontBundle\Controller\Payments\SaveAfertPayementController
+        calls:
+            - [saveOrderInBaseAction, ['@?']]
 

@@ -8,17 +8,31 @@
 {% block body %}
 
     <!--
-    +totalAmount: 6
-  +price: array:1
-  +numberCommand: "LPC598333e919a6a"
+
+PayementModel {
+  +totalAmount: 24
+  +price: array:2 [
+    0 => 12
+    1 => 12
+  ]
+  +numberCommand: "LPC5984d1be41cc3"
   +order: OrderModel {
-    +visitDate: DateTime
-    +ticketType: "2"
+    +visitDate: DateTime {}
+    +ticketType: "1"
     +buyerLastName: "yann"
     +buyerFirstName: "clemennt"
     +buyerEmail: "clementyann@free.fr"
-    +tickets: array:1
-
+    +tickets: array:[
+      1 => TicketModel {
+        +visitorFullName: "yann clemennt"
+        +visitorCountry: "FR"
+        +visitorBirthDate: DateTime {}
+        +reducedPrices: false
+      }
+      2 => TicketModel { }
+    ]
+  }
+}
     -->
 
     <div class="container-fluid">
@@ -27,6 +41,22 @@
             <div class="col-md-6">
                 <div class="row">
                     <table class="table">
+                        <tr>
+                            <td>N° de commande</td>
+                            <td>{{ form.numberCommand }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date de Visite</td>
+                            <td>{{ form.order.visitDate | date ('d/m/Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nom</td>
+                            <td>{{ form.order.buyerFirstName |upper }} {{ form.order.buyerLastName | e }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email de contact</td>
+                            <td>{{ form.order.buyerEmail }}</td>
+                        </tr>
 
                     </table>
                 </div>
@@ -45,14 +75,30 @@
                         </thead>
 
                         <tfoot >
-                            <tr class="text-center">
-                                <td colspan="2">Nombre de billet(s) {{ form.price|length }}<td>
+                            <tr>
+                                <td>Nombre de billet(s) {{ form.price|length }}</td>
                                 <td colspan="2">Total de la commande: {{ form.totalAmount }}.00€</td>
+                                <td>
+                                    <form action="#" method="POST">
+                                        <script
+                                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                data-key="pk_test_aYn42rDsZyeFrQ7kHbjAIz05"
+                                                data-amount="{{ form.totalAmount }}00"
+                                                data-name="Le Louvre"
+                                                data-description="Votre visite du {{ form.order.visitDate | date("d/m/Y") }}"
+                                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                data-locale="fr"
+                                                data-zip-code="true"
+                                                data-email="{{ form.order.buyerEmail }}"
+                                                data-currency="eur">
+                                        </script>
+                                    </form>
+                                </td>
                             </tr>
                         </tfoot>
 
                         <tbody>
-                            {% for key, ticket in form.order.tickets %}
+                            {% for ticket in form.order.tickets %}
                             <tr>
                                 <td>
                                     {{ ticket.visitorFullName}}
@@ -67,10 +113,11 @@
                                 </td>
 
                                 <td>
-                                    {{ form.price[key] }}.00 €
+                                    {{ form.price[loop.index0] }}.00 €
                                 </td>
                                 <td>
-                                    {% if ticket.reducedPrices == true %} <h6>Un justificatif sera necessaire</h6>
+                                    {% if ticket.reducedPrices == true %}
+                                        <h6>Un justificatif sera necessaire</h6>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -81,23 +128,5 @@
             </div>
         </div>
     </div>
-
-    <form action="#" method="POST">
-        <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="pk_test_aYn42rDsZyeFrQ7kHbjAIz05"
-                data-amount="{{ form.totalAmount }}00"
-                data-name="Le Louvre"
-                data-description="Votre visite du {{ form.order.visitDate | date("d/m/Y") }}"
-                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                data-locale="auto"
-                data-zip-code="true"
-                data-email="{{ form.order.buyerEmail }}"
-                data-currency="eur">
-        </script>
-    </form>
-
-
-{{ dump(form) }}
 
 {% endblock %}

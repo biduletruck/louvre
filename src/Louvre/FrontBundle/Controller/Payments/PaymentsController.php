@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PaymentsController extends BookinController
 {
-    const MAXVISITORS = 3; //nombre de visiteurs maximum par jour
+    const MAXVISITORS = 1000; //nombre de visiteurs maximum par jour
 
     public function paymentPrepareOrderAction(Request $request)
     {
@@ -36,9 +36,12 @@ class PaymentsController extends BookinController
                 $this->get('session')->getFlashBag()->add('error', 'Désolé plus de place pour cette date');
             }
 
+
+
+
         }
 
-        return $this->renderOrderForm($formOrder);
+        $this->saveOrderInBaseAction($request);
     }
 
 
@@ -65,5 +68,20 @@ class PaymentsController extends BookinController
         return $this->render('@LouvreFront/prepare.html.twig', array(
             'form' => $payementForm->getData()
         ));
+    }
+
+    /**
+     * @param  $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function saveOrderInBaseAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($request);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('success', 'Merci pour votre réservation.');
+
+       return $this->redirect($this->generateUrl('louvre_front_confirmed_order'));
     }
 }

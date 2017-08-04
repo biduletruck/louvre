@@ -17,15 +17,21 @@ use Symfony\Component\HttpFoundation\Request;
 class VisitorsManager
 {
 
-    const MAXVISITORS = 1000; //nombre de visiteurs maximum par jour
+    const MAXVISITORS = 1; //nombre de visiteurs maximum par jour
 
     /**
      * @param $order
      * @return bool
      */
-    public function checkSumOfVisitors(Request $request, Order $order)
+    public function checkSumOfVisitors(Request $request, $visitDate, $countTicket)
     {
-        return $request->get('louvre_front.repository.order_repository.count_visitors', $order->getVisitDate()) < self::MAXVISITORS;
+        $numberTicketsInBase = $request->get('louvre_front.repository.order_repository.count_visitors', $visitDate );
+        $numberTickets = $countTicket;
+
+        dump($numberTicketsInBase);
+        dump($numberTickets);
+
+        return ( $numberTicketsInBase + $numberTickets ) < self::MAXVISITORS;
     }
 
 }

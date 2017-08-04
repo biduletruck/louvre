@@ -373,7 +373,7 @@ class Order
             $amount += $ticket->getPrice($visitDate);
         }
 
-        return $amount;
+        return $amount / $this->getTicketType();
     }
 
     public function getAmount($visitDate)
@@ -384,7 +384,7 @@ class Order
 
         foreach ($this->getTickets() as $ticket)
         {
-            $price[] = $ticket->getPrice($visitDate);
+            $price[] = $ticket->getPrice($visitDate) / $this->getTicketType();
         }
 
         return $price;

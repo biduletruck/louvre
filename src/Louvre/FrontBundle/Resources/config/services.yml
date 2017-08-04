@@ -24,18 +24,11 @@ services:
         arguments:
                 - Louvre\FrontBundle\Entity\Order
 
-    louvre_front.repository.order_repository.count_visitors:
-        class: Louvre\FrontBundle\Repository\OrderRepository
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-                - Louvre\FrontBundle\Entity\Order
+    louvre_front.controller_payments.payments_prepare_order:
+        class: Louvre\FrontBundle\Controller\Payments\PaymentsController
         calls:
-            - [countTicketsByDay, ['@?']]
-
-    louvre_front.services.command_manager.add_command:
-        class: Louvre\FrontBundle\Services\CommandManager
-        arguments:
-            - Louvre\FrontBundle\Entity\Order
+            - [paymentPrepareOrderAction, ['@?']]
+            - [setContainer, ['@service_container']]
 
     louvre_front.controller_payments.payments_form:
         class: Louvre\FrontBundle\Controller\Payments\PaymentsController

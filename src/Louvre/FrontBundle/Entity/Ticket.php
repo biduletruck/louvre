@@ -207,9 +207,7 @@ class Ticket
     public function getPrice($visitDate)
     {
 
-        // $diff = date_diff(new \DateTime(),$this->getVisitorBirthDate());
         $diff = date_diff($visitDate,$this->getVisitorBirthDate());
-         //$diff = $this->order->getVisitDate()->diff($this->getVisitorBirthDate());
 
         switch (true) {
             case $this->getReducedPrices() == true:

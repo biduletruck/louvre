@@ -1,9 +1,4 @@
 services:
-    Louvre.twig_session:
-        class: Louvre\FrontBundle\Twig\Extension\TwigSession
-        public: false
-        tags:
-            - { name: twig.extension }
 
     louvre.front_bundle.form.orders_type:
         class: Louvre\FrontBundle\Form\OrderType

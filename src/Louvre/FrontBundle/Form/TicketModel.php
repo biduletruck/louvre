@@ -37,5 +37,10 @@ class TicketModel
      */
     public $reducedPrices;
 
+    /**
+     * @var int
+     */
+    public $price;
+
 
 }

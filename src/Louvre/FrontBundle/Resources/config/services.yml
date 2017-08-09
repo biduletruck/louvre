@@ -1,4 +1,10 @@
 services:
+    Louvre.twig_session:
+        class: Louvre\FrontBundle\Twig\Extension\TwigSession
+        public: false
+        tags:
+            - { name: twig.extension }
+
     louvre.front_bundle.form.orders_type:
         class: Louvre\FrontBundle\Form\OrderType
         calls:
@@ -27,13 +33,13 @@ services:
     louvre_front.controller_payments.payments_prepare_order:
         class: Louvre\FrontBundle\Controller\Payments\PaymentsController
         calls:
-            - [paymentPrepareOrderAction, ['@?']]
+            - [confirmOrderFormAction, ['@?']]
             - [setContainer, ['@service_container']]
 
     louvre_front.controller_payments.payments_form:
         class: Louvre\FrontBundle\Controller\Payments\PaymentsController
         calls:
-            - [paymentOrderAction, ['@?']]
+            - [showPaymentFormAction, ['@?']]
             - [setContainer, ['@service_container']]
 
     louvre_front.controller.save_afert_payement_controller:

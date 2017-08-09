@@ -364,19 +364,19 @@ class Order
     }
 
 
-    public function getTotalAmount($visitDate)
+    public function getTotalAmount()
     {
         $amount = 0;
 
         foreach ($this->getTickets() as $ticket)
         {
-            $amount += $ticket->getPrice($visitDate);
+            $amount += $ticket->getPrice();
         }
 
         return $amount / $this->getTicketType();
     }
 
-    public function getAmount($visitDate)
+    public function getAmount()
     {
 
         $price = [];
@@ -384,7 +384,7 @@ class Order
 
         foreach ($this->getTickets() as $ticket)
         {
-            $price[] = $ticket->getPrice($visitDate) / $this->getTicketType();
+            $price[] = $ticket->getPrice() / $this->getTicketType();
         }
 
         return $price;

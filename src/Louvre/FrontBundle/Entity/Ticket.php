@@ -204,20 +204,20 @@ class Ticket
      *
      * @return int
      */
-    public function getPrice($visitDate)
+    public function getPrice()
     {
 
-        $diff = date_diff($visitDate,$this->getVisitorBirthDate());
+        $diff = date_diff($this->getOrder()->getVisitDate(),$this->getVisitorBirthDate());
 
         switch (true) {
-            case $this->getReducedPrices() == true:
-                $price = 10;
-                break;
             case $diff->y < 4:
                 $price = 0;
                 break;
             case $diff->y < 12:
                 $price = 8;
+                break;
+            case $this->getReducedPrices() == true:
+                $price = 10;
                 break;
             case $diff->y >= 60:
                 $price = 12;
@@ -225,6 +225,7 @@ class Ticket
             default:
                 $price = 16;
         }
+
         return $price;
     }
 }

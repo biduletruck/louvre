@@ -10,6 +10,7 @@ namespace Louvre\FrontBundle\Controller\Payments;
 
 use Louvre\FrontBundle\Controller\Booking\BookinController;
 use Louvre\FrontBundle\Entity\Order;
+use Louvre\FrontBundle\Form\OrderModel;
 use Louvre\FrontBundle\Form\OrderType;
 use Louvre\FrontBundle\Form\PayementModel;
 use Louvre\FrontBundle\Form\PayementType;
@@ -70,37 +71,20 @@ class PaymentsController extends BookinController
 
         try {
             $charge = \Stripe\Charge::create(array(
-                "amount" => $order->totalAmount . "00",
+                "amount" => ($order->totalAmount * 100),
                 "currency" => "eur",
                 "source" => $token,
                 "description" => "Paiement Stripe - OpenClassrooms Exemple"
             ));
             $this->addFlash("success", "Félicitation, votre commande à été validée.");
-
-
-            return $this->redirectToRoute("louvre_front_showorder");
+            return $charge;
         } catch (\Stripe\Error\Card $e) {
-
             $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
-            return $this->redirectToRoute("louvre_front_prepare_order");
+            return false;
             // The card has been declined
         }
     }
 
-    /**
-     * @Param Order $order
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function saveOrderInBaseAction(Order $order)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($order);
-        $em->flush();
-
-        $this->get('session')->getFlashBag()->add('success', 'Merci pour votre réservation.');
-
-       return $this->redirect($this->generateUrl('louvre_front_confirmed_order'));
-    }
 
     /**
      * @param $orderModel
@@ -124,6 +108,12 @@ class PaymentsController extends BookinController
         $payementModel->numberCommand = $order->getNumberCommand();
         $payementForm = $this->createForm(PayementType::class, $payementModel);
 
+
+        $session = $this->get('session');
+        $session->remove('tempOrder');
+        $session->set('tempOrder', $payementForm->getData());
+
+
         return $payementForm;
     }
 
@@ -132,6 +122,15 @@ class PaymentsController extends BookinController
      */
     public function confirmPayementAction(Request $request)
     {
+
+        $session = $this->get('session')->get('tempOrder');
+        $payementForm = $this->createForm(PayementType::class,$session);
+        $payementForm->handleRequest($request);
+
+
+
+        return $this->saveOrderInBase($session);
+
 
         /*
          * si formulaire erreur
@@ -171,5 +170,22 @@ class PaymentsController extends BookinController
         $orderFactory = $this->get('louvre.front_bundle.entity.order_factory');
         $order = $orderFactory->createFromModel($model);
         return $order;
+    }
+
+    /**
+     * @param $session
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    private function saveOrderInBase($session)
+    {
+        $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($session->order);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($order);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('success', 'Merci pour votre réservation.');
+
+        return $this->redirect($this->generateUrl('louvre_front_showorder'));
     }
 }

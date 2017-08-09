@@ -14,10 +14,10 @@ louvre_front_saveorder:
 
 louvre_front_prepare_order:
     path:     /order/prepare
-    defaults: { _controller: LouvreFrontBundle:Payments/Payments:paymentPrepareOrder}
+    defaults: { _controller: LouvreFrontBundle:Payments/Payments:showPaymentForm}
     methods: [POST]
 
 louvre_front_confirmed_order:
     path:     /order/confirmed
-    defaults: { _controller: LouvreFrontBundle:Payments/Payments:checkout}
-    methods: [POST]
+    defaults: { _controller: LouvreFrontBundle:Payments/Payments:confirmPayement}
+    methods: [GET, POST]

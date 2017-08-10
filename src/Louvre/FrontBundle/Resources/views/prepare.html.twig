@@ -6,7 +6,7 @@
 
 
 {% block body %}
-{{ dump() }}
+
     {% set form = form.vars.value %}
 
     <div class="container-fluid">
@@ -17,7 +17,7 @@
                     <table class="table">
                         <tr>
                             <td>N° de commande</td>
-                            <td>{{ form.numberCommand|e }}></td>
+                            <td>{{ form.numberCommand|e }}</td>
                         </tr>
                         <tr>
                             <td>Date de Visite</td>
@@ -53,20 +53,21 @@
                             <td>Nombre de billet(s) {{ form.price|length }}</td>
                             <td colspan="2">Total de la commande: {{ form.totalAmount }}.00€</td>
                             <td>
+
                                 <form action="{{ path('louvre_front_confirmed_order') }}" method="POST">
                                     <script
                                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                             data-key="pk_test_aYn42rDsZyeFrQ7kHbjAIz05"
-                                             data-amount="{{ form.totalAmount }}00"
+                                            data-amount="{{ form.totalAmount * 100 }}"
                                             data-name="Le Louvre"
                                             data-description="Votre visite du {{ form.order.visitDate | date("d/m/Y") }}"
                                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                            data-locale="fr"
+                                            data-locale="auto"
                                             data-zip-code="true"
-                                            data-email="{{ form.order.buyerEmail }}"
                                             data-currency="eur">
                                     </script>
                                 </form>
+
                             </td>
                         </tr>
                         </tfoot>

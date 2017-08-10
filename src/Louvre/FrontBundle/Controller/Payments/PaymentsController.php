@@ -10,7 +10,6 @@ namespace Louvre\FrontBundle\Controller\Payments;
 
 use Louvre\FrontBundle\Controller\Booking\BookinController;
 use Louvre\FrontBundle\Entity\Order;
-use Louvre\FrontBundle\Form\OrderModel;
 use Louvre\FrontBundle\Form\OrderType;
 use Louvre\FrontBundle\Form\PayementModel;
 use Louvre\FrontBundle\Form\PayementType;
@@ -20,16 +19,17 @@ class PaymentsController extends BookinController
 {
     const MAXVISITORS = 1000; //nombre de visiteurs maximum par jour
 
-
-
     public function confirmOrderFormAction(Request $request)
-
     {
         $formOrder = $this->buildOrderForm();
         $formOrder->handleRequest($request);
 
+
+
+
         if ($formOrder->isSubmitted() && $formOrder->isValid()) {
             $order = $this->createOrderFromData($formOrder);
+
             if ($this->thereIsEnoughSeats($order))
             {
                 return $this->showPaymentFormAction($request);
@@ -55,6 +55,12 @@ class PaymentsController extends BookinController
         $orderForm->handleRequest($request);
         $orderModel = $orderForm->getData();
         $payementForm = $this->preparePayement($orderModel);
+
+        if ($payementForm == false)
+        {
+            $this->addFlash("error", "Une date de visite doit être renseignée.");
+            return $this->redirect($this->generateUrl('louvre_front_showorder'));
+        }
         return $this->render('@LouvreFront/prepare.html.twig', array(
             'form' => $payementForm->createView()
         ));
@@ -63,7 +69,6 @@ class PaymentsController extends BookinController
 
     public function checkoutAction()
     {
-
         \Stripe\Stripe::setApiKey($this->container->getParameter('stripe_secret'));
         $token = $_POST['stripeToken'];
         $session = $this->get('session');
@@ -74,17 +79,15 @@ class PaymentsController extends BookinController
                 "amount" => ($order->totalAmount * 100),
                 "currency" => "eur",
                 "source" => $token,
-                "description" => "Paiement Stripe - OpenClassrooms Exemple"
+                "description" => "Le Louvre - Visite du musée"
             ));
             $this->addFlash("success", "Félicitation, votre commande à été validée.");
             return $charge;
         } catch (\Stripe\Error\Card $e) {
             $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
             return false;
-            // The card has been declined
         }
     }
-
 
     /**
      * @param $orderModel
@@ -98,21 +101,22 @@ class PaymentsController extends BookinController
         $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($orderModel);
         $tickets = $order->getTickets()->toArray();
 
-        foreach ($payementModel->order->tickets as $ticket)
+        $payementForm = false;
+
+        if($order->getVisitDate() != null)
         {
-            $actualTicket = array_shift($tickets);
-            $ticket->price = $actualTicket->getPrice();
+            foreach ($payementModel->order->tickets as $ticket)
+            {
+                $actualTicket = array_shift($tickets);
+                $ticket->price = $actualTicket->getPrice();
+            }
+
+            $payementModel->totalAmount = $order->getTotalAmount();
+            $payementModel->numberCommand = $order->getNumberCommand();
+            $payementForm = $this->createForm(PayementType::class, $payementModel);
+
+            $this->addInSession($payementForm);
         }
-
-        $payementModel->totalAmount = $order->getTotalAmount();
-        $payementModel->numberCommand = $order->getNumberCommand();
-        $payementForm = $this->createForm(PayementType::class, $payementModel);
-
-
-        $session = $this->get('session');
-        $session->remove('tempOrder');
-        $session->set('tempOrder', $payementForm->getData());
-
 
         return $payementForm;
     }
@@ -126,28 +130,34 @@ class PaymentsController extends BookinController
         $session = $this->get('session')->get('tempOrder');
         $payementForm = $this->createForm(PayementType::class,$session);
         $payementForm->handleRequest($request);
+        $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($session->order);
 
+        if ($this->thereIsEnoughSeats($order)) //on vérifie une nouvelle fois le nombre place dispo
+        {
+            $charge = $this->checkoutAction(); //on initialise le paiement
 
+            $customer = \Stripe\Charge::retrieve( //on vériifie le retour du paiement
+                "$charge->id",
+                array('api_key' => $this->container->getParameter('stripe_secret'))
+            );
 
-        return $this->saveOrderInBase($session);
+            //Si le formulaire est retourné et confirmer on envoi le mail et on sauve le résultat
+            if ($charge->status == "succeeded" && ($charge->amount == $customer->amount) && ($charge->created == $customer->created) )
+            {
+                $this->get('louvre_front.services.send_tickets_by_email')->sendCommandMail($session);
 
+                return $this->saveOrderInBase($session);
+            }
 
-        /*
-         * si formulaire erreur
-         *  rendu du template et afficher formulaire comme avant
-         *
-         * return $this->render('@LouvreFront/prepare.html.twig', array(
-            'form' => $payementForm->createView()
-         *
-         * si formulaire = OK
-         *  vérifier token stripe
-         *  si ok
-         *      envoir en base
-         *  si nok
-         *      retour vers paiement + message erreur
-         * return $this->render('@LouvreFront/prepare.html.twig', array(
-            'form' => $payementForm->createView()
-         */
+            $this->addFlash("error", "Une érreur est survenue, merci de faire un nouvel éssai");
+            return $this->render('@LouvreFront/prepare.html.twig', array(
+                'form' => $payementForm->createView()));
+        }
+
+        $this->get('session')->getFlashBag()->add('error', 'Désolé plus de place pour cette date');
+
+        return $this->render('@LouvreFront/prepare.html.twig', array(
+            'form' => $payementForm->createView()));
 
     }
 
@@ -169,6 +179,7 @@ class PaymentsController extends BookinController
         $model = $formOrder->getData();
         $orderFactory = $this->get('louvre.front_bundle.entity.order_factory');
         $order = $orderFactory->createFromModel($model);
+
         return $order;
     }
 
@@ -176,7 +187,7 @@ class PaymentsController extends BookinController
      * @param $session
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    private function saveOrderInBase($session)
+    public function saveOrderInBase($session)
     {
         $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($session->order);
 
@@ -187,5 +198,15 @@ class PaymentsController extends BookinController
         $this->get('session')->getFlashBag()->add('success', 'Merci pour votre réservation.');
 
         return $this->redirect($this->generateUrl('louvre_front_showorder'));
+    }
+
+    /**
+     * @param $payementForm
+     */
+    public function addInSession($payementForm)
+    {
+        $session = $this->get('session');
+        $session->remove('tempOrder');
+        $session->set('tempOrder', $payementForm->getData());
     }
 }

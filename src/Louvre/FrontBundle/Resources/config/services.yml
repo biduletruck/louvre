@@ -25,20 +25,10 @@ services:
         arguments:
                 - Louvre\FrontBundle\Entity\Order
 
-    louvre_front.controller_payments.payments_prepare_order:
-        class: Louvre\FrontBundle\Controller\Payments\PaymentsController
+    louvre_front.services.send_tickets_by_email:
+        class: Louvre\FrontBundle\Services\MailManager
+        arguments: ['@templating.engine.twig', '@swiftmailer.mailer']
         calls:
-            - [confirmOrderFormAction, ['@?']]
-            - [setContainer, ['@service_container']]
+            - [sendCommandMail, ['@?']]
 
-    louvre_front.controller_payments.payments_form:
-        class: Louvre\FrontBundle\Controller\Payments\PaymentsController
-        calls:
-            - [showPaymentFormAction, ['@?']]
-            - [setContainer, ['@service_container']]
-
-    louvre_front.controller.save_afert_payement_controller:
-        class: Louvre\FrontBundle\Controller\Payments\SaveAfertPayementController
-        calls:
-            - [saveOrderInBaseAction, ['@?']]
 

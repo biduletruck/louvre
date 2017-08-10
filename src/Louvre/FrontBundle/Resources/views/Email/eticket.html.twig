@@ -1,26 +1,69 @@
-<img src="https://www.grapheine.com/wp-content/uploads/2016/04/louvre-1eravril-800x238.jpg" alt="logo louvre">
+
+<img src="{{ asset('imgs/logo-louvre.jpg') }}" alt="logo louvre">
+
+{% set form = command %}
 <h1>Confirmation de votre commande sur le site du Louvre</h1>
-Merci {{ command.firstname }}, d'avoir acheté vos billet sur le site du Louvre.
+<p>Bonjour, {{ form.order.buyerFirstName |upper }} {{ form.order.buyerLastName | e }}, nous vous remercions de votre commande.</p>
+<p>Vous trouverez ci-joint le récapitulatif de vottre commande ainsi que le détail des billets.</p>
+<hr>
 
-<h2>Récapitulatif de votre commande</h2>
+<p>Le documment suivant vous sera demandé lors de votre visite, merci de l'imprimer.</p>
+
 <div>
-    <p>Numero de command: <span>{{ command_number }}</span></p>
-    <p>Date de visite le: <span>{{ command.visitdate | date('d/m/Y') }}</span></p>
-    <p>Moment de la visite: <span>{{ command.ticketType }}</span></p>
-    <p>Montant total de votre commande: {{ command.total }} €</p>
-</div>
+    <table>
+        <tr>
+            <td>N° de commande: </td>
+            <td>{{ form.numberCommand|e }}</td>
+        </tr>
+        <tr>
+            <td>Date de Visite: </td>
+            <td>{{ form.order.visitDate | date ('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <td>Nom: </td>
+            <td>{{ form.order.buyerFirstName |upper }} {{ form.order.buyerLastName | e }}</td>
+        </tr>
+        <tr>
+            <td>Email de contact: </td>
+            <td>{{ form.order.buyerEmail }}</td>
+        </tr>
+        <tr>
+            <td>Nombre de billet(s):</td>
+            <td>{{ form.order.tickets|length }}</td>
 
-<h3>Liste des billets (nominatifs)</h3>
-<ul>
-    {% for key, ticket in command.tickets %}
-        <li>
-            <div>
-                <h4>{{ ticket.firstname }} {{ ticket.lastname }}</h4>
-                <p>Pays de nationalité: {{ ticket.country }}</p>
-                <p>Né le: {{ ticket.birthdate.date | date("d/m/Y") }}</p>
-                <p>Bénéficie du tarif "{{ ticket.priceType }}".</p>
-                <p>Prix du billet: {{ ticket.price }} €</p>
-            </div>
-        </li>
-    {% endfor %}
-</ul>
+        </tr>
+        <tr>
+            <td>Montant en euro:</td>
+            <td>{{ form.totalAmount }} .00€</td>
+
+        </tr>
+
+    </table>
+</div>
+<hr>
+<div>
+    <ul>
+        {% for ticket in form.order.tickets %}
+            <li>
+                <h3>Nom du visiteur: {{ ticket.visitorFullName}}</h3>
+                <p>
+                    Type de billet: {% if form.order.ticketType == 1 %}
+                        Billet Journée
+                    {% else %}
+                        Billet demi-journée
+                    {% endif %}
+                </p>
+                <p>
+                    Prix du billet: {{ ticket.price }}.00 €
+                    {% if ticket.reducedPrices == true %}
+                </p>
+                <h6>Tarif « réduit » accordé dans certaines conditions (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…)</h6>
+
+                {% endif %}
+
+                <p>Pays: {{ ticket.visitorCountry|country }}</p>
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -4,9 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "98ad4341c912ecf1c04819af537f942a",
-    "content-hash": "5030028dbad6b91b4744fa51b6d26811",
+    "hash": "93081856a896577c66cff19d03095c38",
+    "content-hash": "4ee884bf2729b2cee8a5192358abdcf2",
     "packages": [
+        {
+            "name": "alaczi/twig-country-extension",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alaczi/twig-country-extension.git",
+                "reference": "6c68bf9e933826c100adf723febdb9fb94d83e1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alaczi/twig-country-extension/zipball/6c68bf9e933826c100adf723febdb9fb94d83e1d",
+                "reference": "6c68bf9e933826c100adf723febdb9fb94d83e1d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/intl": "~2.3|~3.0",
+                "twig/twig": "~1.15|^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "alaczi\\Twig\\Extension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andras Laczi",
+                    "email": "andraslaczi@me.com"
+                }
+            ],
+            "description": "Twig country filter extension for twig",
+            "homepage": "http://github.com/alaczi/twig-country-extension",
+            "keywords": [
+                "country",
+                "extension",
+                "filter",
+                "twig"
+            ],
+            "time": "2017-06-16 08:57:49"
+        },
         {
             "name": "bacon/bacon-qr-code",
             "version": "1.0.1",

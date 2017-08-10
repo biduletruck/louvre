@@ -20,14 +20,17 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('visitorFullName', TextType::class, array(
+                'required' => true,
                 'label'=> 'Nom du visiteur',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('visitorCountry', CountryType::class, array(
+                'required' => true,
                 'label' => 'Pays visiteur',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('visitorBirthDate', BirthdayType::class, array(
+                'required' => true,
                 'label' => 'Date de naissance',
                 'attr' => array(
                     'class' => 'form-control',

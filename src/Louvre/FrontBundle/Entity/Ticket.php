@@ -229,16 +229,4 @@ class Ticket
         return $price;
     }
 
-    /**
-     * Set price
-     *
-     *
-     * @return Ticket
-     */
-    public function setPrice()
-    {
-        $this->price = $this->getPrice();
-
-        return $this;
-    }
 }

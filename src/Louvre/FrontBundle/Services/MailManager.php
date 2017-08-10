@@ -21,18 +21,19 @@ class MailManager
         $this->mailer = $mailer;
         $this->templating = $templating;
     }
-    public function sendCommandMail($command_number, $session)
+
+    public function sendCommandMail( $session)
     {
         $message = Swift_Message::newInstance();
         $message->setSubject('Confirmation de votre commande sur le site du Louvre')
-            ->setFrom('louvre@mail.com')
-            ->setTo('root@localhost')
+            ->setFrom('louvre-commande@louvre.xyz')
+            ->setTo($session->order->buyerEmail)
             ->setBody(
                 $this->templating->render('LouvreFrontBundle:Email:eticket.html.twig', array(
-                        'command' => $session,
-                        'command_number' => $command_number,
+                        'command' => $session
                     )
-                )
+                ),
+                'text/html'
             );
         return $this->mailer->send($message);
     }

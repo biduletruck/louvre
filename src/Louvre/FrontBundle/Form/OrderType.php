@@ -39,6 +39,7 @@ class OrderType extends AbstractType
     {
         $builder
             ->add('visitDate', DateType::class, array(
+                    'required' => true,
                     'label' => 'Date de votre visite : ',
                     'widget' =>'single_text',
                     'attr' => array('class' => 'form-control datepicker',

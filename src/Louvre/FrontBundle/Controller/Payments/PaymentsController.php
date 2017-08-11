@@ -9,6 +9,7 @@
 namespace Louvre\FrontBundle\Controller\Payments;
 
 use Louvre\FrontBundle\Controller\Booking\BookinController;
+use Louvre\FrontBundle\Entity\Billing;
 use Louvre\FrontBundle\Entity\Order;
 use Louvre\FrontBundle\Form\OrderType;
 use Louvre\FrontBundle\Form\PayementModel;
@@ -119,6 +120,7 @@ class PaymentsController extends BookinController
     {
 
         $session = $this->get('session')->get('tempOrder');
+
         $payementForm = $this->createForm(PayementType::class,$session);
         $payementForm->handleRequest($request);
         $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($session->order);
@@ -132,10 +134,16 @@ class PaymentsController extends BookinController
                 array('api_key' => $this->container->getParameter('stripe_secret'))
             );
 
+
+
             //Si le formulaire est retourné et confirmer on envoi le mail et on sauve le résultat
             if ($charge->status == "succeeded" && ($charge->amount == $customer->amount) && ($charge->created == $customer->created) )
             {
                 $this->get('louvre_front.services.send_tickets_by_email')->sendCommandMail($session);
+
+                $this->saveTransactionInBase($customer, $session);
+
+
 
                 return $this->saveOrderInBase($session);
             }
@@ -199,5 +207,17 @@ class PaymentsController extends BookinController
         $session = $this->get('session');
         $session->remove('tempOrder');
         $session->set('tempOrder', $payementForm->getData());
+    }
+
+    /**
+     * @param $customer
+     * @param $session
+     */
+    private function saveTransactionInBase($customer, $session)
+    {
+        $billing = $this->get('louvre_front.entity.billing_factory')->createFromBilling($customer, $session);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($billing);
+        $em->flush();
     }
 }

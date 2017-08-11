@@ -31,4 +31,8 @@ services:
         calls:
             - [sendCommandMail, ['@?']]
 
+    louvre_front.entity.billing_factory:
+        class: Louvre\FrontBundle\Entity\BillingFactory
+        calls:
+            - [createFromBilling, ['@?', '@?']]
 

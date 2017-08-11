@@ -1,7 +1,5 @@
 {% extends '::base.html.twig' %}
 {% block css %}
-
-
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
@@ -13,94 +11,87 @@
 
 <div class="container-fluid">
 
-    <div class="well">
-            <h3>Formulaire de réservation</h3>
+   <div class="row">
+       <div class="well">
+           <h3>Formulaire de réservation</h3>
+       </div>
+   </div>
+
+    <div class="row">
+        {% for flashMessage in app.session.flashbag.get('error') %}
+
+            <div class="alert alert-danger alert-dismissable fade in">{{ flashMessage }}</div>
+
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+
+            <div class="alert alert-success alert-dismissable fade in">{{ flashMessage }}</div>
+
+        {% endfor %}
     </div>
-    {% for flashMessage in app.session.flashbag.get('error') %}
 
-        <div class="alert alert-danger alert-dismissable fade in">{{ flashMessage }}</div>
+    <div class="row">
+        <div class="well col-sm-12 col-xs-10 col-md-5 col-lg-5">
+            {{ form_start(form) }}
 
-    {% endfor %}
-    {% for flashMessage in app.session.flashbag.get('success') %}
-
-        <div class="alert alert-success alert-dismissable fade in">{{ flashMessage }}</div>
-
-    {% endfor %}
-    <div class="well col-xs-12 col-md-4 col-md-push-4 col-lg-4 col-lg-push-4">
-        {{ form_start(form, {'attr': {'class': 'form'}}) }}
-
-        <div class="form-group">
-            <div>
+            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
                 {{ form_label(form.visitDate) }}
-            </div>
-            <div>
                 {{ form_errors(form.visitDate) }}
                 {{ form_widget(form.visitDate) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            <div>
+            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
                 {{ form_label(form.ticketType) }}
-            </div>
-            <div>
                 {{ form_errors(form.ticketType) }}
                 {{ form_widget(form.ticketType) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            <div>
+            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
                 {{ form_label(form.buyerLastName) }}
-            </div>
-            <div>
                 {{ form_errors(form.buyerLastName) }}
                 {{ form_widget(form.buyerLastName) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            <div>
+            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
                 {{ form_label(form.buyerFirstName) }}
-            </div>
-            <div>
                 {{ form_errors(form.buyerFirstName) }}
                 {{ form_widget(form.buyerFirstName) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            <div>
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
                 {{ form_label(form.buyerEmail) }}
-            </div>
-            <div>
                 {{ form_errors(form.buyerEmail) }}
                 {{ form_widget(form.buyerEmail) }}
             </div>
-        </div>
 
-        <div class="form-group">
-            <div>
+
+
+           <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
+               {{ form_widget(form.save) }}
+               <a href="#" id="add_ticket" class="btn btn-info">Ajouter un ticket</a>
+           </div>
+
+       </div>
+
+        <div class="well col-xs-12 col-sm-10 col-md-4 col-lg-4">
+
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
                 {{ form_label(form.tickets) }}
-            </div>
-            <div>
                 {{ form_errors(form.tickets) }}
                 {{ form_widget(form.tickets) }}
             </div>
+
         </div>
 
+        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
 
-        <div class="form-group">
-            <a href="#" id="add_ticket" class="btn btn-info">Ajouter un ticket</a>
-        </div>
-
-
-        <div class="form-group">
-            {{ form_widget(form.save) }}
         </div>
 
         {{ form_end(form) }}
+
+
     </div>
+
 </div>
 {% endblock %}
 

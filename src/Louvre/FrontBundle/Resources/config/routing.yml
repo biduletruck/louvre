@@ -14,7 +14,7 @@ louvre_front_saveorder:
 
 louvre_front_prepare_order:
     path:     /order/prepare
-    defaults: { _controller: LouvreFrontBundle:Payments/Payments:showPaymentForm}
+    defaults: { _controller: LouvreFrontBundle:Payments/Payments:confirmOrderForm}
     methods: [POST]
 
 louvre_front_confirmed_order:

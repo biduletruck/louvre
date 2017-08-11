@@ -24,9 +24,6 @@ class PaymentsController extends BookinController
         $formOrder = $this->buildOrderForm();
         $formOrder->handleRequest($request);
 
-
-
-
         if ($formOrder->isSubmitted() && $formOrder->isValid()) {
             $order = $this->createOrderFromData($formOrder);
 
@@ -56,11 +53,6 @@ class PaymentsController extends BookinController
         $orderModel = $orderForm->getData();
         $payementForm = $this->preparePayement($orderModel);
 
-        if ($payementForm == false)
-        {
-            $this->addFlash("error", "Une date de visite doit être renseignée.");
-            return $this->redirect($this->generateUrl('louvre_front_showorder'));
-        }
         return $this->render('@LouvreFront/prepare.html.twig', array(
             'form' => $payementForm->createView()
         ));

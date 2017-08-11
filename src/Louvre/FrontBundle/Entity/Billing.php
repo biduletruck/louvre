@@ -24,51 +24,44 @@ class Billing
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="transactionId", type="string", length=255, unique=true)
      */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
+    private $transactionId;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="numberOfTickets", type="integer")
+     * @ORM\Column(name="transactionAmount", type="integer")
      */
-    private $numberOfTickets;
+    private $transactionAmount;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="transactionCreated", type="integer")
+     */
+    private $transactionCreated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="transactionStatus", type="string", length=255)
+     */
+    private $transactionStatus;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numCommand", type="string", length=255)
+     */
+    private $numCommand;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="visitDay", type="datetime")
+     * @ORM\Column(name="dateCommand", type="datetime")
      */
-    private $visitDay;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="numberCommand", type="string", length=255)
-     */
-    private $numberCommand;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="stripeToken", type="string", length=255)
-     */
-    private $stripeToken;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="price", type="integer")
-     */
-    private $price;
+    private $dateCommand;
 
 
     /**
@@ -82,170 +75,146 @@ class Billing
     }
 
     /**
-     * Set email
+     * Set transactionId
      *
-     * @param string $email
+     * @param string $transactionId
      *
      * @return Billing
      */
-    public function setEmail($email)
+    public function setTransactionId($transactionId)
     {
-        $this->email = $email;
+        $this->transactionId = $transactionId;
 
         return $this;
     }
 
     /**
-     * Get email
+     * Get transactionId
      *
      * @return string
      */
-    public function getEmail()
+    public function getTransactionId()
     {
-        return $this->email;
+        return $this->transactionId;
     }
 
     /**
-     * Set name
+     * Set transactionAmount
      *
-     * @param string $name
+     * @param integer $transactionAmount
      *
      * @return Billing
      */
-    public function setName($name)
+    public function setTransactionAmount($transactionAmount)
     {
-        $this->name = $name;
+        $this->transactionAmount = $transactionAmount;
 
         return $this;
     }
 
     /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set numberOfTickets
-     *
-     * @param integer $numberOfTickets
-     *
-     * @return Billing
-     */
-    public function setNumberOfTickets($numberOfTickets)
-    {
-        $this->numberOfTickets = $numberOfTickets;
-
-        return $this;
-    }
-
-    /**
-     * Get numberOfTickets
+     * Get transactionAmount
      *
      * @return int
      */
-    public function getNumberOfTickets()
+    public function getTransactionAmount()
     {
-        return $this->numberOfTickets;
+        return $this->transactionAmount;
     }
 
     /**
-     * Set visitDay
+     * Set transactionCreated
      *
-     * @param \DateTime $visitDay
+     * @param integer $transactionCreated
      *
      * @return Billing
      */
-    public function setVisitDay($visitDay)
+    public function setTransactionCreated($transactionCreated)
     {
-        $this->visitDay = $visitDay;
+        $this->transactionCreated = $transactionCreated;
 
         return $this;
     }
 
     /**
-     * Get visitDay
+     * Get transactionCreated
+     *
+     * @return int
+     */
+    public function getTransactionCreated()
+    {
+        return $this->transactionCreated;
+    }
+
+    /**
+     * Set transactionStatus
+     *
+     * @param string $transactionStatus
+     *
+     * @return Billing
+     */
+    public function setTransactionStatus($transactionStatus)
+    {
+        $this->transactionStatus = $transactionStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get transactionStatus
+     *
+     * @return string
+     */
+    public function getTransactionStatus()
+    {
+        return $this->transactionStatus;
+    }
+
+    /**
+     * Set numCommand
+     *
+     * @param string $numCommand
+     *
+     * @return Billing
+     */
+    public function setNumCommand($numCommand)
+    {
+        $this->numCommand = $numCommand;
+
+        return $this;
+    }
+
+    /**
+     * Get numCommand
+     *
+     * @return string
+     */
+    public function getNumCommand()
+    {
+        return $this->numCommand;
+    }
+
+    /**
+     * Set dateCommand
+     *
+     * @param \DateTime $dateCommand
+     *
+     * @return Billing
+     */
+    public function setDateCommand($dateCommand)
+    {
+        $this->dateCommand = $dateCommand;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCommand
      *
      * @return \DateTime
      */
-    public function getVisitDay()
+    public function getDateCommand()
     {
-        return $this->visitDay;
-    }
-
-    /**
-     * Set numberCommand
-     *
-     * @param string $numberCommand
-     *
-     * @return Billing
-     */
-    public function setNumberCommand($numberCommand)
-    {
-        $this->numberCommand = $numberCommand;
-
-        return $this;
-    }
-
-    /**
-     * Get numberCommand
-     *
-     * @return string
-     */
-    public function getNumberCommand()
-    {
-        return $this->numberCommand;
-    }
-
-    /**
-     * Set stripeToken
-     *
-     * @param string $stripeToken
-     *
-     * @return Billing
-     */
-    public function setStripeToken($stripeToken)
-    {
-        $this->stripeToken = $stripeToken;
-
-        return $this;
-    }
-
-    /**
-     * Get stripeToken
-     *
-     * @return string
-     */
-    public function getStripeToken()
-    {
-        return $this->stripeToken;
-    }
-
-    /**
-     * Set price
-     *
-     * @param integer $price
-     *
-     * @return Billing
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return int
-     */
-    public function getPrice()
-    {
-        return $this->price;
+        return $this->dateCommand;
     }
 }

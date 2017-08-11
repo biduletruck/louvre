@@ -9,6 +9,7 @@
 namespace Louvre\FrontBundle\Controller\Payments;
 
 use Louvre\FrontBundle\Controller\Booking\BookinController;
+use Louvre\FrontBundle\Entity\Billing;
 use Louvre\FrontBundle\Entity\Order;
 use Louvre\FrontBundle\Form\OrderType;
 use Louvre\FrontBundle\Form\PayementModel;
@@ -23,9 +24,6 @@ class PaymentsController extends BookinController
     {
         $formOrder = $this->buildOrderForm();
         $formOrder->handleRequest($request);
-
-
-
 
         if ($formOrder->isSubmitted() && $formOrder->isValid()) {
             $order = $this->createOrderFromData($formOrder);
@@ -56,11 +54,6 @@ class PaymentsController extends BookinController
         $orderModel = $orderForm->getData();
         $payementForm = $this->preparePayement($orderModel);
 
-        if ($payementForm == false)
-        {
-            $this->addFlash("error", "Une date de visite doit être renseignée.");
-            return $this->redirect($this->generateUrl('louvre_front_showorder'));
-        }
         return $this->render('@LouvreFront/prepare.html.twig', array(
             'form' => $payementForm->createView()
         ));
@@ -81,7 +74,6 @@ class PaymentsController extends BookinController
                 "source" => $token,
                 "description" => "Le Louvre - Visite du musée"
             ));
-            $this->addFlash("success", "Félicitation, votre commande à été validée.");
             return $charge;
         } catch (\Stripe\Error\Card $e) {
             $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
@@ -128,6 +120,7 @@ class PaymentsController extends BookinController
     {
 
         $session = $this->get('session')->get('tempOrder');
+
         $payementForm = $this->createForm(PayementType::class,$session);
         $payementForm->handleRequest($request);
         $order = $this->get('louvre.front_bundle.entity.order_factory')->createFromModel($session->order);
@@ -141,10 +134,16 @@ class PaymentsController extends BookinController
                 array('api_key' => $this->container->getParameter('stripe_secret'))
             );
 
+
+
             //Si le formulaire est retourné et confirmer on envoi le mail et on sauve le résultat
             if ($charge->status == "succeeded" && ($charge->amount == $customer->amount) && ($charge->created == $customer->created) )
             {
                 $this->get('louvre_front.services.send_tickets_by_email')->sendCommandMail($session);
+
+                $this->saveTransactionInBase($customer, $session);
+
+
 
                 return $this->saveOrderInBase($session);
             }
@@ -195,7 +194,7 @@ class PaymentsController extends BookinController
         $em->persist($order);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('success', 'Merci pour votre réservation.');
+        $this->get('session')->getFlashBag()->add('success', 'Nous vous remercions pour votre commande, un émail de confirmation vous a été envoyé avec vos places');
 
         return $this->redirect($this->generateUrl('louvre_front_showorder'));
     }
@@ -208,5 +207,17 @@ class PaymentsController extends BookinController
         $session = $this->get('session');
         $session->remove('tempOrder');
         $session->set('tempOrder', $payementForm->getData());
+    }
+
+    /**
+     * @param $customer
+     * @param $session
+     */
+    private function saveTransactionInBase($customer, $session)
+    {
+        $billing = $this->get('louvre_front.entity.billing_factory')->createFromBilling($customer, $session);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($billing);
+        $em->flush();
     }
 }

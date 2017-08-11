@@ -2,6 +2,22 @@
 ## OpenClassRooms Parcours Chef de Projet Multimedia - DÉVELOPPEMENT - Yann CLEMENT:
 
 ### Projet N°4 - Developpement d'un Back-End:
- - Créer un nouveau système de réservation et de gestion des tickets en ligne avec solution de paiement Stripe
- - La création du Back-End est réaliser sous Symfony 3.
+
+### Demande client:
+- Le musée du Louvre vous a missionné pour un projet ambitieux : créer un nouveau système de réservation et de gestion des tickets en ligne pour diminuer les longues files d’attente et tirer parti de l’usage croissant des smartphones.
+
+### Spécifications:
+- Develeppement du site entièrement avec Symfony 3
+- Utilisation de Stripe pour le paiement en ligne
+- Envoyer un émail de confirmation
+    
+### Installation:
+
++ Dans le dossier WWW: 
+    1. Récupérer le dépôt: git clone git@github.com:biduletruck/louvre.git
+    2. Faire un composer install (récupération des vendors)
+    3. Mettre en place la base: php bin/console doctrinne:schema:update --force
+    3. Donner les droits d'accès aux répertoires var/ et web/
+
+
  

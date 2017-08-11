@@ -11,8 +11,11 @@
 
     <div class="container-fluid">
         <div class="row">
+            <div class="well">
+                <H1>Récapitulatif de votre commande</H1>
+            </div>
 
-            <div class="col-md-6">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="row">
                     <table class="table">
                         <tr>
@@ -36,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
                     <table class="table table-hover">
                         <thead>
@@ -50,7 +53,7 @@
 
                         <tfoot >
                         <tr>
-                            <td>Nombre de billet(s) {{ form.price|length }}</td>
+                            <td>Nombre de billet(s) {{ form.order.tickets|length }}</td>
                             <td colspan="2">Total de la commande: {{ form.totalAmount }}.00€</td>
                             <td>
 
@@ -100,6 +103,14 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <span>Paiement 100% sécurisé</span>
+                <img alt="master" src="{{ asset('imgs/mastercard.gif') }}">
+                <img alt="Visa" src="{{ asset('imgs/visa.gif') }}">
+                <img alt="e.BLEUE" src="{{ asset('imgs/e_bleue.gif') }}">
+
             </div>
         </div>
     </div>

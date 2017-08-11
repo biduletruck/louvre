@@ -18,3 +18,8 @@
 /bin/*
 
 /log/
+/Capfile
+/Gemfile
+/Gemfile.lock
+/1.0.0.rc1'
+/gemfile.txt

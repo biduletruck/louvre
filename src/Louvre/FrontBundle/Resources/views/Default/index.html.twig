@@ -1,10 +1,14 @@
 {% extends "::base.html.twig" %}
 {% block body %}
     <div class="container-fluid">
-        <div class="row">
-            <section id="messageAccueil" class="col-xs-12 col-md-12 text-center">
+        <div class="row" >
+
+            <div id="annonceAccueil" class="col-xs-12 col-md-12 text-center">
                 <h1>Bienvenue sur le site de réservation en ligne du Louvre</h1>
-            </section>
+            </div>
+        </div>
+        <div id="imageAccueil" class="img-responsive">
+            <img src="{{ asset('imgs/Louvre_Museum.jpg') }}" alt="Image carrousel" title="" class="imagecache imagecache-940x250" width="100%">
         </div>
     </div>
 

@@ -2,6 +2,18 @@ louvre_front_homepage:
     path:     /
     defaults: { _controller: LouvreFrontBundle:Default:index }
 
+louvre_front_horaires:
+    path:     /horaires
+    defaults: { _controller: LouvreFrontBundle:Default:horaires }
+
+louvre_front_mentions_legales:
+    path:     /mentions_legales
+    defaults: { _controller: LouvreFrontBundle:Default:mentionsLegales }
+
+louvre_front_contact:
+    path:     /contact
+    defaults: { _controller: LouvreFrontBundle:Default:contact }
+
 louvre_front_showorder:
     path:     /order/
     defaults: { _controller: LouvreFrontBundle:Booking/ShowBooking:showOrder}

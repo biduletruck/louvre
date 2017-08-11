@@ -7,92 +7,101 @@
 {% block body %}
 
 
+    <div class="container-fluid">
+        <div class="row">
 
-
-<div class="container-fluid">
-
-   <div class="row">
-       <div class="well">
-           <h3>Formulaire de réservation</h3>
-       </div>
-   </div>
-
-    <div class="row">
-        {% for flashMessage in app.session.flashbag.get('error') %}
-
-            <div class="alert alert-danger alert-dismissable fade in">{{ flashMessage }}</div>
-
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('success') %}
-
-            <div class="alert alert-success alert-dismissable fade in">{{ flashMessage }}</div>
-
-        {% endfor %}
-    </div>
-
-    <div class="row">
-        <div class="well col-sm-12 col-xs-10 col-md-5 col-lg-5">
-            {{ form_start(form) }}
-
-            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
-                {{ form_label(form.visitDate) }}
-                {{ form_errors(form.visitDate) }}
-                {{ form_widget(form.visitDate) }}
+            <div class="well">
+                <h1>Formulaire de réservation</h1>
             </div>
 
-            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
-                {{ form_label(form.ticketType) }}
-                {{ form_errors(form.ticketType) }}
-                {{ form_widget(form.ticketType) }}
+                {% for flashMessage in app.session.flashbag.get('error') %}
+
+                    <div class="alert alert-danger alert-dismissable fade in">{{ flashMessage }}</div>
+
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('success') %}
+
+                    <div class="alert alert-success alert-dismissable fade in">{{ flashMessage }}</div>
+
+                {% endfor %}
+
+            <div class="well col-xs-12 col-md-4 col-md-push-4 col-lg-4 col-lg-push-4">
+                {{ form_start(form, {'attr': {'class': 'form','novalidate':'novalidate'}}) }}
+
+                <div class="form-group">
+                    <div>
+                        {{ form_label(form.visitDate) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.visitDate) }}
+                        {{ form_widget(form.visitDate) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        {{ form_label(form.ticketType) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.ticketType) }}
+                        {{ form_widget(form.ticketType) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        {{ form_label(form.buyerLastName) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.buyerLastName) }}
+                        {{ form_widget(form.buyerLastName) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        {{ form_label(form.buyerFirstName) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.buyerFirstName) }}
+                        {{ form_widget(form.buyerFirstName) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        {{ form_label(form.buyerEmail) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.buyerEmail) }}
+                        {{ form_widget(form.buyerEmail) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        {{ form_label(form.tickets) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.tickets) }}
+                        {{ form_widget(form.tickets) }}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <a href="#" id="add_ticket" class="btn btn-info">Ajouter un ticket</a>
+                </div>
+
+
+                <div class="form-group">
+                    {{ form_widget(form.save) }}
+                </div>
+
+                {{ form_end(form) }}
             </div>
-
-            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
-                {{ form_label(form.buyerLastName) }}
-                {{ form_errors(form.buyerLastName) }}
-                {{ form_widget(form.buyerLastName) }}
-            </div>
-
-            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
-                {{ form_label(form.buyerFirstName) }}
-                {{ form_errors(form.buyerFirstName) }}
-                {{ form_widget(form.buyerFirstName) }}
-            </div>
-
-            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                {{ form_label(form.buyerEmail) }}
-                {{ form_errors(form.buyerEmail) }}
-                {{ form_widget(form.buyerEmail) }}
-            </div>
-
-
-
-           <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
-               {{ form_widget(form.save) }}
-               <a href="#" id="add_ticket" class="btn btn-info">Ajouter un ticket</a>
-           </div>
-
-       </div>
-
-        <div class="well col-xs-12 col-sm-10 col-md-4 col-lg-4">
-
-            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                {{ form_label(form.tickets) }}
-                {{ form_errors(form.tickets) }}
-                {{ form_widget(form.tickets) }}
-            </div>
-
         </div>
-
-        <div class="col-sm-2 col-xs-2 col-md-2 col-lg-2">
-
-        </div>
-
-        {{ form_end(form) }}
-
-
     </div>
-
-</div>
 {% endblock %}
 
 {% block scripts %}
@@ -102,42 +111,30 @@
     <script src="{{ asset('js/datepicker.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
             var $container = $('div#louvre_frontbundle_orders_tickets');
-
             var index = $container.find(':input').length;
-
             $('#add_ticket').click(function(e) {
                 addTicket($container);
-
                 e.preventDefault();
                 return false;
             });
-
-
             if (index == 0) {
                 addTicket($container);
             } else {
-
                 $container.children('div').each(function() {
                     addDeleteLink($(this));
                 });
             }
-
-
             function addTicket($container) {
                 var template = $container.attr('data-prototype')
                     .replace(/__name__label__/g, 'Ticket n°' + (index+1))
                     .replace(/__name__/g,        index)
                 ;
-
                 var $prototype = $(template);
                 addDeleteLink($prototype);
                 $container.append($prototype);
                 index++;
             }
-
-
             function addDeleteLink($prototype) {
                 var $deleteLink = $('<div class="form-group pull-right"><a href="#" class="btn btn-xs btn-danger">Supprimer</a></div> ');
                 $prototype.append($deleteLink);
@@ -150,4 +147,3 @@
         });
     </script>
 {%  endblock %}
-

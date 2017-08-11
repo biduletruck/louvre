@@ -16,4 +16,19 @@ class DefaultController extends Controller
     {
         return $this->render('LouvreFrontBundle::reservation.html.twig');
     }
+
+    public function horairesAction()
+    {
+        return $this->render('@LouvreFront/ressources/horaires.html.twig');
+    }
+
+    public function mentionsLegalesAction()
+    {
+        return $this->render('@LouvreFront/ressources/mentions_legales.html.twig');
+    }
+
+    public function contactAction()
+    {
+        return $this->render('@LouvreFront/ressources/contact.html.twig');
+    }
 }

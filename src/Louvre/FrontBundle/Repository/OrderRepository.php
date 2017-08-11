@@ -10,28 +10,22 @@ namespace Louvre\FrontBundle\Repository;
  */
 class OrderRepository extends \Doctrine\ORM\EntityRepository
 {
-
-    public function find($id, $lockMode = null, $lockVersion = null)
-    {
-        return $this->createQueryBuilder('o')
-            ->addSelect('o')
-            ->join('o.tickets', 't')
-            ->andWhere('t.id = 2')
-        ->getQuery()
-        ->getResult()
-        ;
-    }
-
+    /**
+     * @param $visit_date
+     * @param $numberTickets
+     * @return int
+     */
     public function countTicketsByDay($visit_date)
     {
-        return $this->getEntityManager()->createQueryBuilder()
+        $countTicket = $this->getEntityManager()->createQueryBuilder()
             ->select("count(o.id)")
             ->from("LouvreFrontBundle:Order", "o")
             ->leftJoin("o.tickets","t")
             ->where("o.visitDate = :visit_date")
             ->setParameter('visit_date', $visit_date)
-            ->getQuery()
-            ->getSingleScalarResult();
+            ->getQuery();
+
+        return intval($countTicket->getSingleScalarResult());
     }
 
 

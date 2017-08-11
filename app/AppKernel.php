@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Louvre\FrontBundle\LouvreFrontBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new Endroid\QrCode\Bundle\EndroidQrCodeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

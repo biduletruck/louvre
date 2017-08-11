@@ -3,6 +3,7 @@
 namespace Louvre\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 /**
@@ -58,6 +59,14 @@ class Ticket
      * @ORM\Column(name="reducedPrices", type="boolean")
      */
     protected $reducedPrices;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    protected  $price = 0;
+
 
     /**
      * Get id
@@ -190,10 +199,16 @@ class Ticket
     }
 
 
+    /**
+     * Get price
+     *
+     * @return int
+     */
     public function getPrice()
     {
 
-        $diff = $this->order->getVisitDate()->diff($this->getVisitorBirthDate());
+        $diff = date_diff($this->getOrder()->getVisitDate(),$this->getVisitorBirthDate());
+
         switch (true) {
             case $diff->y < 4:
                 $price = 0;
@@ -201,12 +216,17 @@ class Ticket
             case $diff->y < 12:
                 $price = 8;
                 break;
+            case $this->getReducedPrices() == true:
+                $price = 10;
+                break;
             case $diff->y >= 60:
                 $price = 12;
                 break;
             default:
                 $price = 16;
         }
+
         return $price;
     }
+
 }

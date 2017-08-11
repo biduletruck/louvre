@@ -58,11 +58,14 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
-    spool: { type: memory }
+  spool:     { type: memory }
+  transport: smtp
+  host:      smtp.mailtrap.io
+  username:  a49b3d3eb1b625
+  password:  1f0383154a0fd5
+  auth_mode: cram-md5
+  port: 2525
+
 
 assetic:
     debug:          '%kernel.debug%'

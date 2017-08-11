@@ -1,4 +1,5 @@
 services:
+
     louvre.front_bundle.form.orders_type:
         class: Louvre\FrontBundle\Form\OrderType
         calls:
@@ -24,10 +25,10 @@ services:
         arguments:
                 - Louvre\FrontBundle\Entity\Order
 
-    louvre_front.repository.order_repository:
-        class: Louvre\FrontBundle\Repository\OrderRepository
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-                - Louvre\FrontBundle\Entity\Order
+    louvre_front.services.send_tickets_by_email:
+        class: Louvre\FrontBundle\Services\MailManager
+        arguments: ['@templating.engine.twig', '@swiftmailer.mailer']
         calls:
-            - [countTicketsByDay, ['@?']]
+            - [sendCommandMail, ['@?']]
+
+

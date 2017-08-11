@@ -7,6 +7,7 @@ namespace Louvre\FrontBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -38,6 +39,7 @@ class OrderType extends AbstractType
     {
         $builder
             ->add('visitDate', DateType::class, array(
+                    'required' => true,
                     'label' => 'Date de votre visite : ',
                     'widget' =>'single_text',
                     'attr' => array('class' => 'form-control datepicker',
@@ -67,13 +69,13 @@ class OrderType extends AbstractType
                 'allow_add'    => true,
                 'allow_delete' => true
             ))
-
             ->add('save',      SubmitType::class,array(
                 'label_format' => 'Réserver !',
                 'attr' => array('class' => 'btn btn-success')
             ))
             ->setAction($this->router
-                                    ->generate('louvre_front_saveorder'))
+                                    //->generate('louvre_front_saveorder'))
+                                    ->generate('louvre_front_prepare_order'))
                                     ->setMethod(Request::METHOD_POST);
     }
     

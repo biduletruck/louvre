@@ -7,9 +7,14 @@ parameters:
     database_name: louvre
     database_user: root
     database_password: root
-    mailer_transport: gmail
-    mailer_host: smtp.gmail.com
-    mailer_user: biduletruck@gmail.com
-    mailer_password: lilia2605
+    mailer_transport: smtp
+    mailer_host: smtp.mailtrap.io
+    mailer_user: a49b3d3eb1b625
+    mailer_adress: 74f4f78fbc-f340e2@inbox.mailtrap.io
+    mailer_password:  1f0383154a0fd5
+    mailer_auth_mode: cram-md5
+    mailer_port: 2525
+    stripe_public: pk_test_aYn42rDsZyeFrQ7kHbjAIz05
+    stripe_secret: sk_test_1n1QFALEzFsOUMgT2gGYLiU8
     secret: 1db42e9a8574396a5b2ed945ac73fbef18f0ac20
 

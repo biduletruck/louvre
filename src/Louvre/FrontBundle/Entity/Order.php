@@ -362,4 +362,34 @@ class Order
     {
         return uniqid('LPC');
     }
+
+
+    public function getTotalAmount()
+    {
+        $amount = 0;
+
+        foreach ($this->getTickets() as $ticket)
+        {
+            $amount += $ticket->getPrice();
+        }
+
+        return $amount / $this->getTicketType();
+    }
+
+    public function getAmount()
+    {
+
+        $price = [];
+
+
+        foreach ($this->getTickets() as $ticket)
+        {
+            $price[] = $ticket->getPrice() / $this->getTicketType();
+        }
+
+        return $price;
+
+
+    }
+
 }

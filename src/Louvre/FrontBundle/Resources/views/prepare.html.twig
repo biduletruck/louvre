@@ -4,27 +4,105 @@
     <link rel="stylesheet" href="{{ asset('css/stripe.css') }}">
 {% endblock %}
 
+
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Projet Stripe</span> Mentorat OpenClassroom</h1>
+
+    {% set form = form.vars.value %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <td>N° de commande</td>
+                            <td>{{ form.numberCommand|e }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date de Visite</td>
+                            <td>{{ form.order.visitDate | date ('d/m/Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nom</td>
+                            <td>{{ form.order.buyerFirstName |upper }} {{ form.order.buyerLastName | e }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email de contact</td>
+                            <td>{{ form.order.buyerEmail }}</td>
+                        </tr>
+
+                    </table>
+                </div>
             </div>
-            <div id="status">
-                <form action="" method="POST">
-                    <script
-                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="pk_test_aYn42rDsZyeFrQ7kHbjAIz05"
-                            data-amount="999"
-                            data-name="YC-DESIGN.FR"
-                            data-description="Widget"
-                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                            data-locale="fr"
-                            data-zip-code="false"
-                            data-currency="eur">
-                    </script>
-                </form>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Nom du visiteur</th>
+                            <th>Type de billet</th>
+                            <th>Tarif</th>
+                            <th>commentaire</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot >
+                        <tr>
+                            <td>Nombre de billet(s) {{ form.price|length }}</td>
+                            <td colspan="2">Total de la commande: {{ form.totalAmount }}.00€</td>
+                            <td>
+
+                                <form action="{{ path('louvre_front_confirmed_order') }}" method="POST">
+                                    <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="pk_test_aYn42rDsZyeFrQ7kHbjAIz05"
+                                            data-amount="{{ form.totalAmount * 100 }}"
+                                            data-name="Le Louvre"
+                                            data-description="Votre visite du {{ form.order.visitDate | date("d/m/Y") }}"
+                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                            data-locale="auto"
+                                            data-zip-code="true"
+                                            data-currency="eur">
+                                    </script>
+                                </form>
+
+                            </td>
+                        </tr>
+                        </tfoot>
+
+                        <tbody>
+                        {% for ticket in form.order.tickets %}
+                            <tr>
+                                <td>
+                                    {{ ticket.visitorFullName}}
+                                </td>
+
+                                <td>
+                                    {% if form.order.ticketType == 1 %}
+                                        Billet Journée
+                                    {% else %}
+                                        Billet demi-journée
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {{ ticket.price }}.00 €
+                                </td>
+                                <td>
+                                    {% if ticket.reducedPrices == true %}
+                                        <h6>Un justificatif sera necessaire</h6>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+
+
 {% endblock %}

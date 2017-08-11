@@ -73,7 +73,6 @@ class PaymentsController extends BookinController
                 "source" => $token,
                 "description" => "Le Louvre - Visite du musée"
             ));
-            $this->addFlash("success", "Félicitation, votre commande à été validée.");
             return $charge;
         } catch (\Stripe\Error\Card $e) {
             $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
@@ -187,7 +186,7 @@ class PaymentsController extends BookinController
         $em->persist($order);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('success', 'Merci pour votre réservation.');
+        $this->get('session')->getFlashBag()->add('success', 'Nous vous remercions pour votre commande, un émail de confirmation vous a été envoyé avec vos places');
 
         return $this->redirect($this->generateUrl('louvre_front_showorder'));
     }

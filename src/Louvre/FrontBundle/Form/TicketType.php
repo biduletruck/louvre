@@ -30,6 +30,7 @@ class TicketType extends AbstractType
             ))
             ->add('visitorBirthDate', BirthdayType::class, array(
                 'required' => true,
+                'widget' => 'single_text',
                 'label' => 'Date de naissance',
                 'attr' => array(
                     'class' => 'form-control'
